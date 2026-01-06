@@ -1,7 +1,5 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
-
 @section('content_header')
     <h1>Datos del sistema</h1>
 @stop
@@ -12,7 +10,7 @@
             <h3 class="card-title">Bienvenido a la sección de configuración del sistema.</h3>
         </div>
         <div class="card-body">
-            @if ($errors->any())
+            {{-- @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -20,7 +18,7 @@
                         @endforeach
                     </ul>
                 </div>
-            @endif
+            @endif --}}
             <form action="{{ url('/admin/configuracion/create') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
@@ -29,7 +27,7 @@
                             <label for="logo">Logo de la institución</label><b> (*)</b>
                             <div class="input-group">
                                 <input type="file" name="logo" id="logo" onchange="mostrarImagen(event)"
-                                    accept="image/*" required>
+                                    accept="image/*" @if (!isset($configuracion) || !$configuracion->logo) required @else @endif>
                                 <br>
                                 <div class="text-center">
                                     {{-- <img id="preview" style="max-width: 200px; margin-top: 10px;"> --}}

@@ -12,7 +12,8 @@ class GestionController extends Controller
      */
     public function index()
     {
-        //
+        $gestiones = Gestion::all();
+        return view('admin.gestiones.index', compact('gestiones'));
     }
 
     /**
@@ -20,7 +21,7 @@ class GestionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.gestiones.create');
     }
 
     /**
@@ -28,7 +29,18 @@ class GestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return response()->json($request->all());
+        $request->validate([
+            'nombre' => 'required|unique:gestiones'
+        ]);
+
+        $gestion = new Gestion();
+        $gestion->nombre = $request->nombre;
+        $gestion->save();
+
+        return redirect()->route('admin.gestiones.index')
+            ->with('mensaje', 'La gestión se ha creado correctamente.')
+            ->with('icono', 'success');
     }
 
     /**
@@ -42,24 +54,40 @@ class GestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Gestion $gestion)
+    public function edit($id)
     {
-        //
+        $gestion = Gestion::findOrFail($id);
+        return view('admin/gestiones/edit', compact('gestion'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Gestion $gestion)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|unique:gestiones,nombre,' . $id
+        ]);
+
+        $gestion = Gestion::find($id);
+        $gestion->nombre = $request->nombre;
+        $gestion->save();
+
+        return redirect()->route('admin.gestiones.index')
+            ->with('mensaje', 'La gestión se ha actualizado correctamente.')
+            ->with('icono', 'success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Gestion $gestion)
+    public function destroy($id)
     {
-        //
+        $gestion = Gestion::find($id);
+        $gestion->delete();
+
+        return redirect()->route('admin.gestiones.index')
+            ->with('mensaje', 'La gestión se ha eliminado correctamente.')
+            ->with('icono', 'success');
     }
 }

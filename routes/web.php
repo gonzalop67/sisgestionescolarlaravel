@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\GestionController;
+use App\Http\Controllers\NivelController;
+use App\Http\Controllers\TurnoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +25,11 @@ Route::get('/admin/gestiones/create', [GestionController::class, 'create'])->nam
 Route::post('/admin/gestiones/create', [GestionController::class, 'store'])->name('admin.gestiones.store')->middleware('auth');
 Route::get('/admin/gestiones/{id}/edit', [GestionController::class, 'edit'])->name('admin.gestiones.edit')->middleware('auth');
 Route::put('/admin/gestiones/{id}', [GestionController::class, 'update'])->name('admin.gestiones.update')->middleware('auth');
-Route::delete('/admin/gestiones/{id}', [GestionController::class, 'destroy'])->name('admin.productos.destroy')->middleware('auth');
+Route::delete('/admin/gestiones/{id}', [GestionController::class, 'destroy'])->name('admin.gestiones.destroy')->middleware('auth');
+
+// rutas para los niveles del sistema
+Route::get('/admin/niveles', [NivelController::class, 'index'])->name('admin.niveles.index')->middleware('auth');
+Route::post('/admin/niveles/create', [NivelController::class, 'store'])->name('admin.niveles.store')->middleware('auth');
+Route::put('/admin/niveles/{id}', [NivelController::class, 'update'])->name('admin.niveles.update')->middleware('auth');
+Route::delete('/admin/niveles/{id}', [NivelController::class, 'destroy'])->name('admin.niveles.destroy')->middleware('auth');
+

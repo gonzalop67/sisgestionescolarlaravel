@@ -321,6 +321,12 @@ return [
             'classes' => 'bg-blue text-white',
         ],
 
+        [
+            'text' => 'Turnos',
+            'url' => 'admin/turnos',
+            'icon' => 'fas fa-fw fa-clock',
+            'classes' => 'bg-blue text-white',
+        ],
     ],
 
     /*

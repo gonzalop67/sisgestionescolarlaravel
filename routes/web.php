@@ -3,6 +3,7 @@
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\GestionController;
 use App\Http\Controllers\NivelController;
+use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\TurnoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,12 @@ Route::post('/admin/gestiones/create', [GestionController::class, 'store'])->nam
 Route::get('/admin/gestiones/{id}/edit', [GestionController::class, 'edit'])->name('admin.gestiones.edit')->middleware('auth');
 Route::put('/admin/gestiones/{id}', [GestionController::class, 'update'])->name('admin.gestiones.update')->middleware('auth');
 Route::delete('/admin/gestiones/{id}', [GestionController::class, 'destroy'])->name('admin.gestiones.destroy')->middleware('auth');
+
+// rutas para los periodos del sistema
+Route::get('/admin/periodos', [PeriodoController::class, 'index'])->name('admin.periodos.index')->middleware('auth');
+Route::post('/admin/periodos/create', [PeriodoController::class, 'store'])->name('admin.periodos.store')->middleware('auth');
+Route::put('/admin/periodos/{id}', [PeriodoController::class, 'update'])->name('admin.periodos.update')->middleware('auth');
+Route::delete('/admin/periodos/{id}', [PeriodoController::class, 'destroy'])->name('admin.periodos.destroy')->middleware('auth');
 
 // rutas para los niveles del sistema
 Route::get('/admin/niveles', [NivelController::class, 'index'])->name('admin.niveles.index')->middleware('auth');

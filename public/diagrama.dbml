@@ -9,3 +9,24 @@ Table configuraciones {
     web varchar
     logo varchar
 }
+
+Table gestiones {
+    id int [pk, increment] // Primary key
+    nombre varchar
+}
+
+Table periodos {
+    id int [pk, increment] // Primary key
+    nombre varchar
+    gestion_id int [ref: > gestiones.id]
+}
+
+Table niveles {
+    id int [pk, increment] // Primary key
+    nombre varchar
+}
+
+Table turnos {
+    id int [pk, increment] // Primary key
+    nombre varchar
+}

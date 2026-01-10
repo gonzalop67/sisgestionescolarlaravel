@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\GestionController;
+use App\Http\Controllers\GradoController;
 use App\Http\Controllers\NivelController;
 use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\TurnoController;
@@ -39,6 +40,12 @@ Route::get('/admin/niveles', [NivelController::class, 'index'])->name('admin.niv
 Route::post('/admin/niveles/create', [NivelController::class, 'store'])->name('admin.niveles.store')->middleware('auth');
 Route::put('/admin/niveles/{id}', [NivelController::class, 'update'])->name('admin.niveles.update')->middleware('auth');
 Route::delete('/admin/niveles/{id}', [NivelController::class, 'destroy'])->name('admin.niveles.destroy')->middleware('auth');
+
+// rutas para los grados del sistema
+Route::get('/admin/grados', [GradoController::class, 'index'])->name('admin.grados.index')->middleware('auth');
+Route::post('/admin/grados/create', [GradoController::class, 'store'])->name('admin.grados.store')->middleware('auth');
+Route::put('/admin/grados/{id}', [GradoController::class, 'update'])->name('admin.grados.update')->middleware('auth');
+Route::delete('/admin/grados/{id}', [GradoController::class, 'destroy'])->name('admin.grados.destroy')->middleware('auth');
 
 // rutas para los turnos del sistema
 Route::get('/admin/turnos', [TurnoController::class, 'index'])->name('admin.turnos.index')->middleware('auth');

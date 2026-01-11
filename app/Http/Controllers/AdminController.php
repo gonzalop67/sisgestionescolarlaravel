@@ -10,23 +10,8 @@ use App\Models\Periodo;
 use App\Models\Turno;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class AdminController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         $total_gestiones = Gestion::count();
@@ -36,6 +21,6 @@ class HomeController extends Controller
         $total_paralelos = Paralelo::count();
         $total_turnos = Turno::count();
 
-        return view('home', compact('total_gestiones', 'total_periodos', 'total_niveles', 'total_grados', 'total_paralelos', 'total_turnos'));
+        return view('admin.lte', compact('total_gestiones', 'total_periodos', 'total_niveles', 'total_grados', 'total_paralelos', 'total_turnos'));
     }
 }

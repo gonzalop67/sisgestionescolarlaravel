@@ -4,6 +4,7 @@ use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\GestionController;
 use App\Http\Controllers\GradoController;
 use App\Http\Controllers\NivelController;
+use App\Http\Controllers\ParaleloController;
 use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\TurnoController;
 use Illuminate\Support\Facades\Auth;
@@ -46,6 +47,12 @@ Route::get('/admin/grados', [GradoController::class, 'index'])->name('admin.grad
 Route::post('/admin/grados/create', [GradoController::class, 'store'])->name('admin.grados.store')->middleware('auth');
 Route::put('/admin/grados/{id}', [GradoController::class, 'update'])->name('admin.grados.update')->middleware('auth');
 Route::delete('/admin/grados/{id}', [GradoController::class, 'destroy'])->name('admin.grados.destroy')->middleware('auth');
+
+// rutas para los paralelos del sistema
+Route::get('/admin/paralelos', [ParaleloController::class, 'index'])->name('admin.paralelos.index')->middleware('auth');
+Route::post('/admin/paralelos/create', [ParaleloController::class, 'store'])->name('admin.paralelos.store')->middleware('auth');
+Route::put('/admin/paralelos/{id}', [ParaleloController::class, 'update'])->name('admin.paralelos.update')->middleware('auth');
+Route::delete('/admin/paralelos/{id}', [ParaleloController::class, 'destroy'])->name('admin.paralelos.destroy')->middleware('auth');
 
 // rutas para los turnos del sistema
 Route::get('/admin/turnos', [TurnoController::class, 'index'])->name('admin.turnos.index')->middleware('auth');

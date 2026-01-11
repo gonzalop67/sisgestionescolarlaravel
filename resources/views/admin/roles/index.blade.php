@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1><b>Listado de turnos</b></h1>
+    <h1><b>Listado de roles</b></h1>
 @stop
 
 @section('content')
@@ -9,10 +9,10 @@
         <div class="col-md-6">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Turnos registrados</h3>
+                    <h3 class="card-title">Roles registrados</h3>
 
                     <div class="card-tools">
-                        <a href="{{ url('/admin/turnos/create') }}" class="btn btn-primary">Crear nuevo turno</a>
+                        <a href="{{ url('/admin/roles/create') }}" class="btn btn-primary">Crear nuevo rol</a>
                     </div>
                     <!-- /.card-tools -->
                 </div>
@@ -22,31 +22,31 @@
                         <thead>
                             <tr>
                                 <th>Nro</th>
-                                <th>Nombre</th>
+                                <th>Nombre del Rol</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($turnos as $turno)
+                            @foreach ($roles as $role)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $turno->nombre }}</td>
+                                    <td>{{ $role->name }}</td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">
-                                            <a href="{{ url('/admin/turnos/' . $turno->id) . '/edit' }}"
+                                            <a href="{{ url('/admin/roles/' . $role->id) . '/edit' }}"
                                                 class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
                                             <button type="submit" class="btn btn-danger btn-sm"
-                                                onclick="preguntar{{ $turno->id }}(event)">
+                                                onclick="preguntar{{ $role->id }}(event)">
                                                 <i class="fas fa-trash"></i> Eliminar
                                             </button>
                                         </div>
-                                        <form action="{{ url('/admin/turnos/' . $turno->id) }}" method="post"
-                                            id="miFormulario{{ $turno->id }}" style="display:inline-block;">
+                                        <form action="{{ url('/admin/roles/' . $role->id) }}" method="post"
+                                            id="miFormulario{{ $role->id }}" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
                                         </form>
                                         <script>
-                                            function preguntar{{ $turno->id }}(event) {
+                                            function preguntar{{ $role->id }}(event) {
                                                 event.preventDefault();
                                                 Swal.fire({
                                                     title: '¿Desea eliminar este registro?',
@@ -59,7 +59,7 @@
                                                     denyButtonText: 'Cancelar',
                                                 }).then((result) => {
                                                     if (result.isConfirmed) {
-                                                        document.getElementById('miFormulario{{ $turno->id }}').submit();
+                                                        document.getElementById('miFormulario{{ $role->id }}').submit();
                                                     }
                                                 });
                                             }

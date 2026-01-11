@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Configuracion;
 use App\Models\Gestion;
 use App\Models\Grado;
+use App\Models\Materia;
 use App\Models\Nivel;
 use App\Models\Paralelo;
 use App\Models\Periodo;
@@ -91,5 +92,21 @@ class DatabaseSeeder extends Seeder
         Turno::create(['nombre' => 'Mañana']);
         Turno::create(['nombre' => 'Tarde']);
         Turno::create(['nombre' => 'Noche']);
+
+        Materia::create(['nombre' => 'BIOLOGIA']);
+        Materia::create(['nombre' => 'CIENCIAS NATURALES']);
+        Materia::create(['nombre' => 'FISICA']);
+        Materia::create(['nombre' => 'QUIMICA']);
+        Materia::create(['nombre' => 'CIVICA Y ACOMPAÑAMIENTO INTEGRAL EN EL AULA']);
+        Materia::create(['nombre' => 'EDUCACION PARA LA CIUDADANIA']);
+        Materia::create(['nombre' => 'ESTUDIOS SOCIALES']);
+        Materia::create(['nombre' => 'FILOSOFIA']);
+        Materia::create(['nombre' => 'HISTORIA']);
+        Materia::create(['nombre' => 'EDUCACION CULTURAL Y ARTISTICA']);
+        Materia::create(['nombre' => 'EDUCACION FISICA']);
+        Materia::create(['nombre' => 'INGLES']);
+        Materia::create(['nombre' => 'LENGUA Y LITERATURA']);
+        Materia::create(['nombre' => 'MATEMATICA']);
+        Materia::create(['nombre' => 'EMPRENDIMIENTO Y GESTION']);
     }
 }

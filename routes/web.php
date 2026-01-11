@@ -7,6 +7,7 @@ use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\NivelController;
 use App\Http\Controllers\ParaleloController;
 use App\Http\Controllers\PeriodoController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TurnoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -68,3 +69,12 @@ Route::get('/admin/materias', [MateriaController::class, 'index'])->name('admin.
 Route::post('/admin/materias/create', [MateriaController::class, 'store'])->name('admin.materias.store')->middleware('auth');
 Route::put('/admin/materias/{id}', [MateriaController::class, 'update'])->name('admin.materias.update')->middleware('auth');
 Route::delete('/admin/materias/{id}', [MateriaController::class, 'destroy'])->name('admin.materias.destroy')->middleware('auth');
+
+// rutas para los roles del sistema
+Route::get('/admin/roles', [RoleController::class, 'index'])->name('admin.roles.index')->middleware('auth');
+Route::get('/admin/roles/create', [RoleController::class, 'create'])->name('admin.rolesroles.create')->middleware('auth');
+Route::post('/admin/roles/create', [RoleController::class, 'store'])->name('admin.roles.store')->middleware('auth');
+Route::get('/admin/roles/{id}/edit', [RoleController::class, 'edit'])->name('admin.roles.edit')->middleware('auth');
+Route::get('/admin/roles/permisos/{id}', [RoleController::class, 'permisos'])->name('admin.roles.permisos')->middleware('auth');
+Route::put('/admin/roles/{id}', [RoleController::class, 'update'])->name('admin.roles.update')->middleware('auth');
+Route::delete('/admin/roles/{id}', [RoleController::class, 'destroy'])->name('admin.roles.destroy')->middleware('auth');

@@ -8,7 +8,7 @@ class Periodo extends Model
 {
     protected $table = 'periodos';
 
-    protected $files = [
+    protected $fillable = [
         'nombre',
         'gestion_id'
     ];

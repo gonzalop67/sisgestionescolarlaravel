@@ -3,6 +3,7 @@
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\GestionController;
 use App\Http\Controllers\GradoController;
+use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\NivelController;
 use App\Http\Controllers\ParaleloController;
 use App\Http\Controllers\PeriodoController;
@@ -61,3 +62,9 @@ Route::post('/admin/turnos/create', [TurnoController::class, 'store'])->name('ad
 Route::get('/admin/turnos/{id}/edit', [TurnoController::class, 'edit'])->name('admin.turnos.edit')->middleware('auth');
 Route::put('/admin/turnos/{id}', [TurnoController::class, 'update'])->name('admin.turnos.update')->middleware('auth');
 Route::delete('/admin/turnos/{id}', [TurnoController::class, 'destroy'])->name('admin.turnos.destroy')->middleware('auth');
+
+// rutas para las materias del sistema
+Route::get('/admin/materias', [MateriaController::class, 'index'])->name('admin.materias.index')->middleware('auth');
+Route::post('/admin/materias/create', [MateriaController::class, 'store'])->name('admin.materias.store')->middleware('auth');
+Route::put('/admin/materias/{id}', [MateriaController::class, 'update'])->name('admin.materias.update')->middleware('auth');
+Route::delete('/admin/materias/{id}', [MateriaController::class, 'destroy'])->name('admin.materias.destroy')->middleware('auth');

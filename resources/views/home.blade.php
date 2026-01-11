@@ -91,6 +91,20 @@
               <!-- /.info-box-content -->
             </div>
         </div>
+
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-fw fa-book"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Materias registradas</span>
+                <span class="info-box-number">
+                  {{ $total_materias }} materias
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+        </div>
     </div>
 @stop
 

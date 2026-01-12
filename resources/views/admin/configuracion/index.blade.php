@@ -26,7 +26,7 @@
                         <div class="form-group">
                             <label for="logo">Logo de la institución</label><b> (*)</b>
                             <div class="input-group">
-                                <input type="file" name="logo" id="logo" onchange="mostrarImagen(event)"
+                                <input type="file" class="form-control" name="logo" id="logo" onchange="mostrarImagen(event)"
                                     accept="image/*" @if (!isset($configuracion) || !$configuracion->logo) required @else @endif>
                                 <br>
                                 <div class="text-center">

@@ -105,6 +105,20 @@
               <!-- /.info-box-content -->
             </div>
         </div>
+
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-fw fa-user-check"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Roles registrados</span>
+                <span class="info-box-number">
+                  {{ $total_roles }} roles
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+        </div>
     </div>
 @stop
 

@@ -24,11 +24,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(RoleSeeder::class);
+
         User::create([
             'name' => 'Freddy Hilari',
             'email' => 'admin@admin.com',
             'password' => Hash::make('12345678'),
-        ]);
+        ])->assignRole('ADMINISTRADOR');
 
         Configuracion::create([
             'nombre' => 'Unidad Educativa Hilari Web',

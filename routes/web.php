@@ -84,7 +84,7 @@ Route::delete('/admin/roles/{id}', [RoleController::class, 'destroy'])->name('ad
 Route::get('/admin/personal/{tipo}', [PersonalController::class, 'index'])->name('admin.personal.index')->middleware('auth');
 Route::get('/admin/personal/create/{tipo}', [PersonalController::class, 'create'])->name('admin.personal.create')->middleware('auth');
 Route::post('/admin/personal/create', [PersonalController::class, 'store'])->name('admin.personal.store')->middleware('auth');
-Route::get('/admin/personal/{id}', [PersonalController::class, 'show'])->name('admin.personal.show')->middleware('auth');
+Route::get('/admin/personal/show/{id}', [PersonalController::class, 'show'])->name('admin.personal.show')->middleware('auth');
 Route::get('/admin/personal/{id}/edit', [PersonalController::class, 'edit'])->name('admin.personal.edit')->middleware('auth');
 Route::put('/admin/personal/{id}', [PersonalController::class, 'update'])->name('admin.personal.update')->middleware('auth');
 Route::delete('/admin/personal/{id}', [PersonalController::class, 'destroy'])->name('admin.personal.destroy')->middleware('auth');

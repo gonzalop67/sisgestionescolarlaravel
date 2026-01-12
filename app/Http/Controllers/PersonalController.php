@@ -6,6 +6,7 @@ use App\Models\Personal;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 
 class PersonalController extends Controller
@@ -67,46 +68,110 @@ class PersonalController extends Controller
         $personal->direccion = $request->direccion;
         $personal->telefono = $request->telefono;
         $personal->profesion = $request->profesion;
-            
+
         $personal->foto = $request->file('foto')->store('uploads/fotos', 'public');
 
         $personal->save();
 
         return redirect()->route('admin.personal.index', $request->tipo)
-            ->with('mensaje', 'El personal se ha creado exitosamente')
+            ->with('mensaje', 'El personal ' . $request->tipo . ' se ha creado exitosamente')
             ->with('icono', 'success');
-
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Personal $personal)
+    public function show($id)
     {
-        //
+        $personal = Personal::findOrFail($id);
+        return view('admin.personal.show', compact('personal'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Personal $personal)
+    public function edit($id)
     {
-        //
+        $personal = Personal::findOrFail($id);
+        $roles = Role::all();
+        return view('admin.personal.edit', compact('personal', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Personal $personal)
+    public function update(Request $request, $id)
     {
-        //
+        // return response()->json($request->all());
+        $personal = Personal::findOrFail($id);
+        $usuario = User::findOrFail($personal->usuario->id);
+
+        $request->validate([
+            'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'rol' => 'required',
+            'nombres' => 'required',
+            'apellidos' => 'required',
+            'ci' => 'required|unique:personals,ci,' . $id,
+            'fecha_nacimiento' => 'required',
+            'telefono' => 'required',
+            'profesion' => 'required',
+            'email' => 'required|email|unique:users,email,' . $usuario->id,
+            'direccion' => 'required'
+        ]);
+
+
+        $usuario->name = $request->apellidos . " " . $request->nombres;
+        $usuario->email = $request->email;
+        $usuario->password = Hash::make($request->ci);
+        $usuario->save();
+
+        $usuario->syncRoles($request->rol);
+
+
+        $personal->nombres = $request->nombres;
+        $personal->apellidos = $request->apellidos;
+        $personal->apellidos = $request->apellidos;
+        $personal->ci = $request->ci;
+        $personal->fecha_nacimiento = $request->fecha_nacimiento;
+        $personal->direccion = $request->direccion;
+        $personal->telefono = $request->telefono;
+        $personal->profesion = $request->profesion;
+
+        //return $personal->foto;
+
+        if ($request->hasFile('foto')) {
+            //Eliminar foto anterior
+            if ($personal->foto && Storage::disk('public')->exists($personal->foto)) {
+                Storage::disk('public')->delete($personal->foto);
+            }
+            $personal->foto = $request->file('foto')->store('uploads/fotos', 'public');
+        }
+
+        $personal->save();
+
+        return redirect()->route('admin.personal.index', $personal->tipo)
+            ->with('mensaje', 'El personal ' . $personal->tipo . ' se ha actualizado exitosamente')
+            ->with('icono', 'success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Personal $personal)
+    public function destroy($id)
     {
-        //
+        $personal = Personal::findOrFail($id);
+        $usuario = User::findOrFail($personal->usuario_id);
+
+        //Eliminar la foto anterior
+        if ($personal->foto && Storage::disk('public')->exists($personal->foto)) {
+            Storage::disk('public')->delete($personal->foto);
+        }
+
+        $usuario->delete();
+        $personal->delete();
+
+        return redirect()->route('admin.personal.index', $personal->tipo)
+            ->with('mensaje', 'El personal ' . $personal->tipo . ' se ha eliminado exitosamente')
+            ->with('icono', 'success');
     }
 }

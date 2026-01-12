@@ -170,7 +170,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <a href="{{ url('/admin/roles') }}" class="btn btn-default"><i
+                                <a href="{{ url('/admin/personal/' . $tipo) }}" class="btn btn-default"><i
                                         class="fas fa-arrow-left"></i>
                                     Cancelar</a>
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>

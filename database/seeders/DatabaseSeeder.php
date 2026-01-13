@@ -9,6 +9,7 @@ use App\Models\Materia;
 use App\Models\Nivel;
 use App\Models\Paralelo;
 use App\Models\Periodo;
+use App\Models\Personal;
 use App\Models\Turno;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -110,5 +111,96 @@ class DatabaseSeeder extends Seeder
         Materia::create(['nombre' => 'LENGUA Y LITERATURA']);
         Materia::create(['nombre' => 'MATEMATICA']);
         Materia::create(['nombre' => 'EMPRENDIMIENTO Y GESTION']);
+
+        //Administrativo 1
+        User::create(['name' => 'Juan Mendoza', 'email' => 'juan.mendoza@escuela.com', 'password' => Hash::make('87654321')])->assignRole('DIRECTOR/A GENERAL');
+        Personal::create([
+            'usuario_id' => User::latest()->first()->id,
+            'tipo' => 'administrativo',
+            'nombres' => 'Juan',
+            'apellidos' => 'Mendoza',
+            'ci' => '87654321',
+            'fecha_nacimiento' => '1985-05-15',
+            'direccion' => 'Av. Libertad 123',
+            'telefono' => '76543210',
+            'profesion' => 'Lic. en Matemáticas',
+            'foto' => 'uploads/fotos/juan.jpg'
+        ]);
+
+        //Administrativo 2
+        User::create(['name' => 'Carlos Rojas', 'email' => 'carlos.rojas@escuela.com', 'password' => Hash::make('76543210')])->assignRole('DIRECTOR/A ACADÉMICO');
+        Personal::create([
+            'usuario_id' => User::latest()->first()->id,
+            'tipo' => 'administrativo',
+            'nombres' => 'Carlos',
+            'apellidos' => 'Rojas',
+            'ci' => '76543210',
+            'fecha_nacimiento' => '1978-11-22',
+            'direccion' => 'Calle Junín 456',
+            'telefono' => '65432109',
+            'profesion' => 'Contador Público',
+            'foto' => 'uploads/fotos/'.time().'_carlos.jpg'
+        ]);
+
+        //Administrativo 3
+        User::create(['name' => 'Ana Torres', 'email' => 'ana.torres@escuela.com', 'password' => Hash::make('65432109')])->assignRole('DIRECTOR/A ADMINISTRATIVO');
+        Personal::create([
+            'usuario_id' => User::latest()->first()->id,
+            'tipo' => 'administrativo',
+            'nombres' => 'Ana',
+            'apellidos' => 'Torres',
+            'ci' => '65432109',
+            'fecha_nacimiento' => '1992-03-30',
+            'direccion' => 'Av. Bolívar 789',
+            'telefono' => '54321098',
+            'profesion' => 'Lic. en Administración',
+            'foto' => 'uploads/fotos/'.time().'_ana.jpg'
+        ]);
+
+        //Administrativo 4
+        User::create(['name' => 'Jorge Paz', 'email' => 'jorge.paz@escuela.com', 'password' => Hash::make('54321098')])->assignRole('CAJERO/A');
+        Personal::create([
+            'usuario_id' => User::latest()->first()->id,
+            'tipo' => 'administrativo',
+            'nombres' => 'Jorge',
+            'apellidos' => 'Paz',
+            'ci' => '54321098',
+            'fecha_nacimiento' => '1980-07-18',
+            'direccion' => 'Calle Sucre 321',
+            'telefono' => '43210987',
+            'profesion' => 'Contaduría Pública',
+            'foto' => 'uploads/fotos/'.time().'_jorge.jpg'
+        ]);
+
+        //Administrativo 5
+        User::create(['name' => 'Sofía Jiménez', 'email' => 'sofia.jimenez@escuela.com', 'password' => Hash::make('43210987')])->assignRole('SECRETARIO/A');
+        Personal::create([
+            'usuario_id' => User::latest()->first()->id,
+            'tipo' => 'administrativo',
+            'nombres' => 'Sofía',
+            'apellidos' => 'Jiménez',
+            'ci' => '43210987',
+            'fecha_nacimiento' => '1987-09-25',
+            'direccion' => 'Av. América 654',
+            'telefono' => '32109876',
+            'profesion' => 'Secretariado Ejecutivo',
+            'foto' => 'uploads/fotos/'.time().'_sofia.jpg'
+        ]);
+
+        //Administrativo 6
+        User::create(['name' => 'Ricardo Montero', 'email' => 'ricardo.montero@escuela.com', 'password' => Hash::make('11223344')])->assignRole('REGENTE');
+        Personal::create([
+            'usuario_id' => User::latest()->first()->id,
+            'tipo' => 'administrativo',
+            'nombres' => 'Ricardo',
+            'apellidos' => 'Montero',
+            'ci' => '11223344',
+            'fecha_nacimiento' => '1975-12-05',
+            'direccion' => 'Av. Ejecutivos 1500, Piso 10',
+            'telefono' => '70011223',
+            'profesion' => 'Magíster en Gestión Educativa',
+            'foto' => 'uploads/fotos/'.time().'_ricardo.jpg',
+            'created_at' => now()->subYears(3) // Fecha de ingreso hace 3 años
+        ]);
     }
 }

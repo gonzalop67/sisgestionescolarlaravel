@@ -24,4 +24,9 @@ class Personal extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function formaciones()
+    {
+        return $this->hasMany(Formacion::class);
+    }
 }

@@ -69,3 +69,12 @@ Tabla personals {
     foto varchar
 }
 
+Tabla formaciones {
+    id int [pk, increment] // Primary key
+    personal_id int [ref: > personals.id]
+    titulo varchar
+    institucion varchar
+    nivel varchar
+    ano_graduacion varchar
+    archivo varchar
+}

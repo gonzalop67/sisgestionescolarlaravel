@@ -26,7 +26,6 @@
                                 <th class="text-center">Rol</th>
                                 <th class="text-center">Apellidos y Nombres</th>
                                 <th class="text-center">Cédula de Identidad</th>
-                                <th class="text-center">Fecha de Nacimiento</th>
                                 <th class="text-center">Teléfono</th>
                                 <th class="text-center">Profesión</th>
                                 <th class="text-center">Correo</th>
@@ -41,7 +40,6 @@
                                     <td>{{ $personal->usuario->roles->pluck('name')->implode(', ') }}</td>
                                     <td>{{ $personal->apellidos }} {{ $personal->nombres }}</td>
                                     <td>{{ $personal->ci }}</td>
-                                    <td>{{ $personal->fecha_nacimiento }}</td>
                                     <td>{{ $personal->telefono }}</td>
                                     <td>{{ $personal->profesion }}</td>
                                     <td>{{ $personal->usuario->email }}</td>
@@ -50,6 +48,8 @@
                                     </td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">
+                                            <a href="{{ url('/admin/personal/' . $personal->id . '/formaciones') }}"
+                                                class="btn btn-warning btn-sm"><i class="fas fa-tasks"></i> Formaciones</a>
                                             <a href="{{ url('/admin/personal/show/' . $personal->id) }}"
                                                 class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
                                             <a href="{{ url('/admin/personal/' . $personal->id) . '/edit' }}"

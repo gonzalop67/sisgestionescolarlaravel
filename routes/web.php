@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ConfiguracionController;
+use App\Http\Controllers\FormacionController;
 use App\Http\Controllers\GestionController;
 use App\Http\Controllers\GradoController;
 use App\Http\Controllers\MateriaController;
@@ -88,3 +89,8 @@ Route::get('/admin/personal/show/{id}', [PersonalController::class, 'show'])->na
 Route::get('/admin/personal/{id}/edit', [PersonalController::class, 'edit'])->name('admin.personal.edit')->middleware('auth');
 Route::put('/admin/personal/{id}', [PersonalController::class, 'update'])->name('admin.personal.update')->middleware('auth');
 Route::delete('/admin/personal/{id}', [PersonalController::class, 'destroy'])->name('admin.personal.destroy')->middleware('auth');
+
+// rutas para la formación del personal
+Route::get('/admin/personal/{id}/formaciones', [FormacionController::class, 'index'])->name('admin.formaciones.index')->middleware('auth');
+Route::get('/admin/personal/{id}/formaciones/create', [FormacionController::class, 'create'])->name('admin.formaciones.create')->middleware('auth');
+Route::post('/admin/personal/{id}/formaciones/create', [FormacionController::class, 'store'])->name('admin.formaciones.store')->middleware('auth');

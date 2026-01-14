@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Formacion;
 use App\Models\Personal;
-use Faker\Provider\Person;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FormacionController extends Controller
 {
@@ -69,24 +69,63 @@ class FormacionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Formacion $formacion)
+    public function edit($id)
     {
-        //
+        $formacion = Formacion::findOrFail($id);
+        return view('admin.formaciones.edit', compact('formacion'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Formacion $formacion)
+    public function update(Request $request, $id)
     {
-        //
+        // return response()->json($request->all());
+        $request->validate([
+            'titulo' => 'required',
+            'institucion' => 'required',
+            'nivel' => 'required',
+            'fecha_graduacion' => 'required',
+            'archivo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $formacion = Formacion::findOrFail($id);
+        $formacion->titulo = $request->titulo;
+        $formacion->institucion = $request->institucion;
+        $formacion->nivel = $request->nivel;
+        $formacion->fecha_graduacion = $request->fecha_graduacion;
+
+        if ($request->hasFile('archivo')) {
+            //Eliminar foto anterior
+            if ($formacion->archivo && Storage::disk('public')->exists($formacion->archivo)) {
+                Storage::disk('public')->delete($formacion->archivo);
+            }
+            $formacion->archivo = $request->file('archivo')->store('uploads/formaciones', 'public');
+        }
+
+        $formacion->save();
+
+        return redirect()->route('admin.formaciones.index', $formacion->personal_id)
+            ->with('mensaje', 'La formación se ha actualizado correctamente.')
+            ->with('icono', 'success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Formacion $formacion)
+    public function destroy(string $id)
     {
-        //
+        $formacion = Formacion::findOrFail($id);
+
+        //Eliminar la foto anterior
+        if ($formacion->archivo && Storage::disk('public')->exists($formacion->archivo)) {
+            Storage::disk('public')->delete($formacion->archivo);
+        }
+
+        $formacion->delete();
+
+        return redirect()->route('admin.formaciones.index', $formacion->personal_id)
+            ->with('mensaje', 'La formación se ha eliminado exitosamente')
+            ->with('icono', 'success');
     }
 }

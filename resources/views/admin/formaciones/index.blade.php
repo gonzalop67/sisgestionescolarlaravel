@@ -205,23 +205,28 @@
                                     <td>{{ $formacion->titulo }}</td>
                                     <td>{{ $formacion->institucion }}</td>
                                     <td>{{ $formacion->nivel }}</td>
-                                    <td>{{ $formacion->feha_graduacion }}</td>
-                                    <td>{{ $formacion->archivo }}</td>
+                                    <td>{{ $formacion->fecha_graduacion }}</td>
+                                    <td class="text-center">
+                                        <a href="{{ url('storage/' . $formacion->archivo) }}" target="_blank">Ver
+                                            Archivo</a>
+                                    </td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">
-                                            <a href="{{ url('/admin/personal/' . $formacion->id) . '/edit' }}"
+                                            <a href="{{ url('/admin/personal/formaciones/' . $formacion->id) }}"
                                                 class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i>
                                                 Editar</a>
-                                            <button type="submit" class="btn btn-danger btn-sm"
-                                                onclick="preguntar{{ $formacion->id }}(event)">
-                                                <i class="fas fa-trash"></i> Eliminar
-                                            </button>
+                                            <form action="{{ route('admin.formaciones.destroy', $formacion->id) }}"
+                                                method="post" id="miFormulario{{ $formacion->id }}"
+                                                style="display:inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                    onclick="preguntar{{ $formacion->id }}(event)">
+                                                    <i class="fas fa-trash"></i> Eliminar
+                                                </button>
+                                            </form>
                                         </div>
-                                        <form action="{{ url('/admin/personal/' . $formacion->id) }}" method="post"
-                                            id="miFormulario{{ $formacion->id }}" style="display:inline-block;">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
+
                                         <script>
                                             function preguntar{{ $formacion->id }}(event) {
                                                 event.preventDefault();
@@ -236,7 +241,7 @@
                                                     denyButtonText: 'Cancelar',
                                                 }).then((result) => {
                                                     if (result.isConfirmed) {
-                                                        document.getElementById('miFormulario{{ $personal->id }}').submit();
+                                                        document.getElementById('miFormulario{{ $formacion->id }}').submit();
                                                     }
                                                 });
                                             }

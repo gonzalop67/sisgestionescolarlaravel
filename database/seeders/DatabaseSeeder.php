@@ -115,7 +115,7 @@ class DatabaseSeeder extends Seeder
         //Administrativo 1
         User::create(['name' => 'Juan Mendoza', 'email' => 'juan.mendoza@escuela.com', 'password' => Hash::make('87654321')])->assignRole('DIRECTOR/A GENERAL');
         Personal::create([
-            'usuario_id' => User::latest()->first()->id,
+            'usuario_id' => 2,
             'tipo' => 'administrativo',
             'nombres' => 'Juan',
             'apellidos' => 'Mendoza',
@@ -130,7 +130,7 @@ class DatabaseSeeder extends Seeder
         //Administrativo 2
         User::create(['name' => 'Carlos Rojas', 'email' => 'carlos.rojas@escuela.com', 'password' => Hash::make('76543210')])->assignRole('DIRECTOR/A ACADÉMICO');
         Personal::create([
-            'usuario_id' => User::latest()->first()->id,
+            'usuario_id' => 3,
             'tipo' => 'administrativo',
             'nombres' => 'Carlos',
             'apellidos' => 'Rojas',
@@ -145,7 +145,7 @@ class DatabaseSeeder extends Seeder
         //Administrativo 3
         User::create(['name' => 'Ana Torres', 'email' => 'ana.torres@escuela.com', 'password' => Hash::make('65432109')])->assignRole('DIRECTOR/A ADMINISTRATIVO');
         Personal::create([
-            'usuario_id' => User::latest()->first()->id,
+            'usuario_id' => 4,
             'tipo' => 'administrativo',
             'nombres' => 'Ana',
             'apellidos' => 'Torres',
@@ -160,7 +160,7 @@ class DatabaseSeeder extends Seeder
         //Administrativo 4
         User::create(['name' => 'Jorge Paz', 'email' => 'jorge.paz@escuela.com', 'password' => Hash::make('54321098')])->assignRole('CAJERO/A');
         Personal::create([
-            'usuario_id' => User::latest()->first()->id,
+            'usuario_id' => 5,
             'tipo' => 'administrativo',
             'nombres' => 'Jorge',
             'apellidos' => 'Paz',
@@ -175,7 +175,7 @@ class DatabaseSeeder extends Seeder
         //Administrativo 5
         User::create(['name' => 'Sofía Jiménez', 'email' => 'sofia.jimenez@escuela.com', 'password' => Hash::make('43210987')])->assignRole('SECRETARIO/A');
         Personal::create([
-            'usuario_id' => User::latest()->first()->id,
+            'usuario_id' => 6,
             'tipo' => 'administrativo',
             'nombres' => 'Sofía',
             'apellidos' => 'Jiménez',
@@ -190,7 +190,7 @@ class DatabaseSeeder extends Seeder
         //Administrativo 6
         User::create(['name' => 'Ricardo Montero', 'email' => 'ricardo.montero@escuela.com', 'password' => Hash::make('11223344')])->assignRole('REGENTE');
         Personal::create([
-            'usuario_id' => User::latest()->first()->id,
+            'usuario_id' => 7,
             'tipo' => 'administrativo',
             'nombres' => 'Ricardo',
             'apellidos' => 'Montero',
@@ -201,6 +201,118 @@ class DatabaseSeeder extends Seeder
             'profesion' => 'Magíster en Gestión Educativa',
             'foto' => 'uploads/fotos/'.time().'_ricardo.jpg',
             'created_at' => now()->subYears(3) // Fecha de ingreso hace 3 años
+        ]);
+
+        //Docente 1
+        User::create(['name' => 'Gonzalo Peñaherrera', 'email' => 'gonzalo.penaherrera@educacion.gob.ec', 'password' => Hash::make('1709290207')])->assignRole('DOCENTE');
+        Personal::create([
+            'usuario_id' => 8,
+            'tipo' => 'docente',
+            'nombres' => 'Gonzalo',
+            'apellidos' => 'Peñaherrera',
+            'ci' => '1709290207',
+            'fecha_nacimiento' => '1967-05-24',
+            'direccion' => 'Joaquín Sumaita 706 y Sebastián Arias',
+            'telefono' => '2447936',
+            'profesion' => 'Licenciado en Matemática y Física',
+            'foto' => 'uploads/fotos/'.time().'_gonzalo.jpg',
+            'created_at' => now()->subYears(23) // Fecha de ingreso hace 23 años
+        ]);
+
+        //Docente 2
+        User::create(['name' => 'Jorge Piedra', 'email' => 'jorge.piedra@educacion.gob.ec', 'password' => Hash::make('2300003304')])->assignRole('DOCENTE');
+        Personal::create([
+            'usuario_id' => 9,
+            'tipo' => 'docente',
+            'nombres' => 'Jorge',
+            'apellidos' => 'Piedra',
+            'ci' => '2300003304',
+            'fecha_nacimiento' => '1967-05-24',
+            'direccion' => 'Joaquín Sumaita 706 y Sebastián Arias',
+            'telefono' => '2447936',
+            'profesion' => 'Licenciado en Lengua y Literatura',
+            'foto' => 'uploads/fotos/'.time().'_jorge.jpg',
+            'created_at' => now()->subYears(13) // Fecha de ingreso hace 13 años
+        ]);
+
+        //Docente 3
+        User::create(['name' => 'María Angulo', 'email' => 'maria.angulo@educacion.gob.ec', 'password' => Hash::make('1722083712')])->assignRole('DOCENTE');
+        Personal::create([
+            'usuario_id' => 10,
+            'tipo' => 'docente',
+            'nombres' => 'María',
+            'apellidos' => 'Angulo',
+            'ci' => '1722083712',
+            'fecha_nacimiento' => '1968-09-18',
+            'direccion' => 'Av. Siemprevivas No. 17-67',
+            'telefono' => '2414723',
+            'profesion' => 'Licenciado en Ciencias Naturales',
+            'foto' => 'uploads/fotos/'.time().'_maria.jpg',
+            'created_at' => now()->subYears(13) // Fecha de ingreso hace 13 años
+        ]);
+
+        //Docente 4
+        User::create(['name' => 'Sonia Cisneros', 'email' => 'sonia.cisneros@educacion.gob.ec', 'password' => Hash::make('1725971384')])->assignRole('DOCENTE');
+        Personal::create([
+            'usuario_id' => 11,
+            'tipo' => 'docente',
+            'nombres' => 'Sonia',
+            'apellidos' => 'Cisneros',
+            'ci' => '1725971384',
+            'fecha_nacimiento' => '1973-04-10',
+            'direccion' => 'Calle Loja 12-74 y Av. Mariscal Sucre',
+            'telefono' => '0984893415',
+            'profesion' => 'Licenciado en Química y Biología',
+            'foto' => 'uploads/fotos/'.time().'_sonia.jpg',
+            'created_at' => now()->subYears(10) // Fecha de ingreso hace 10 años
+        ]);
+
+        //Docente 5
+        User::create(['name' => 'Isabel Chicaiza', 'email' => 'isabel.cisneros@educacion.gob.ec', 'password' => Hash::make('0601949175')])->assignRole('DOCENTE');
+        Personal::create([
+            'usuario_id' => 12,
+            'tipo' => 'docente',
+            'nombres' => 'Isabel',
+            'apellidos' => 'Chicaiza',
+            'ci' => '0601949175',
+            'fecha_nacimiento' => '1972-11-11',
+            'direccion' => 'Av. Mariscal Sucre N47-361 y Av. 24 de mayo',
+            'telefono' => '0984893415',
+            'profesion' => 'Licenciado en Ciencias Sociales',
+            'foto' => 'uploads/fotos/'.time().'_isabel.jpg',
+            'created_at' => now()->subYears(9) // Fecha de ingreso hace 9 años
+        ]);
+
+        //Docente 6
+        User::create(['name' => 'Oscar Pérez', 'email' => 'oscar.perez@educacion.gob.ec', 'password' => Hash::make('1709312514')])->assignRole('DOCENTE');
+        Personal::create([
+            'usuario_id' => 13,
+            'tipo' => 'docente',
+            'nombres' => 'Oscar',
+            'apellidos' => 'Pérez',
+            'ci' => '1709312514',
+            'fecha_nacimiento' => '1969-12-24',
+            'direccion' => 'Av. Eloy Alfaro N21-216 y Av. Gaspar de Villaroel',
+            'telefono' => '0997187146',
+            'profesion' => 'Magister en Ciencias de la Educación',
+            'foto' => 'uploads/fotos/'.time().'_oscar.jpg',
+            'created_at' => now()->subYears(17) // Fecha de ingreso hace 17 años
+        ]);
+
+        //Docente 7
+        User::create(['name' => 'Pedro Cachimuel', 'email' => 'pedro.cachimuel@educacion.gob.ec', 'password' => Hash::make('2350286858')])->assignRole('DOCENTE');
+        Personal::create([
+            'usuario_id' => 14,
+            'tipo' => 'docente',
+            'nombres' => 'Pedro',
+            'apellidos' => 'Cachimuel',
+            'ci' => '2350286858',
+            'fecha_nacimiento' => '1967-08-21',
+            'direccion' => 'Av. Gaspar de Villaroel N25-146 y Av. Japón',
+            'telefono' => '0985833993',
+            'profesion' => 'Magister en Emprendimiento y Gestión',
+            'foto' => 'uploads/fotos/'.time().'_pedro.jpg',
+            'created_at' => now()->subYears(5) // Fecha de ingreso hace 5 años
         ]);
     }
 }

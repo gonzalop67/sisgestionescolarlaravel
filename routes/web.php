@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ConfiguracionController;
+use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\FormacionController;
 use App\Http\Controllers\GestionController;
 use App\Http\Controllers\GradoController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\NivelController;
 use App\Http\Controllers\ParaleloController;
 use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\PersonalController;
+use App\Http\Controllers\PpffController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TurnoController;
 use Illuminate\Support\Facades\Auth;
@@ -97,3 +99,11 @@ Route::post('/admin/personal/{id}/formaciones/create', [FormacionController::cla
 Route::get('/admin/personal/formaciones/{id}', [FormacionController::class, 'edit'])->name('admin.formaciones.edit')->middleware('auth');
 Route::put('/admin/personal/formaciones/{id}', [FormacionController::class, 'update'])->name('admin.formaciones.update')->middleware('auth');
 Route::delete('/admin/personal/formaciones/{id}', [FormacionController::class, 'destroy'])->name('admin.formaciones.destroy')->middleware('auth');
+
+// rutas para los estudiantes del sistema
+Route::get('/admin/estudiantes/nuevos', [EstudianteController::class, 'index'])->name('admin.estudiantes.index')->middleware('auth');
+Route::get('/admin/estudiantes/nuevos/create', [EstudianteController::class, 'create'])->name('admin.estudiantes.create')->middleware('auth');
+Route::get('/admin/estudiantes/nuevos/get-ppff', [EstudianteController::class, 'get_ppff'])->name('admin.estudiantes.get-ppff')->middleware('auth');
+
+// ruta para registrar al padre de familia del estudiante
+Route::post('/admin/estudiantes/ppff/create', [PpffController::class, 'store'])->name('admin.ppffs.store')->middleware('auth');

@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1>Creación de un nuevo estudiante</h1>
+    <h1>Editar datos del estudiante</h1>
     <hr>
 @stop
 
@@ -11,12 +11,12 @@
         <div class="col-md-12">
             <div class="card card-warning">
                 <div class="card-header">
-                    <h3 class="card-title">Llene los datos del padre de familia en el formulario</h3>
+                    <h3 class="card-title">Datos del padre de familia</h3>
                     <div class="card-tools">
-                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalCreate"><i
+                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalSearch"><i
                                 class="fas fa-search"></i> Buscar padre de familia</button>
                         <!-- Modal -->
-                        <div class="modal fade" id="ModalCreate" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-xl" role="document">
                                 <div class="modal-content">
@@ -66,13 +66,13 @@
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Cerrar</button>
                                         <button class="btn btn-primary" data-toggle="modal"
-                                            data-target="#ModalCreatePpff">Crear nuevo ppff</button>
+                                            data-target="#ModalUpdatePpff">Crear nuevo ppff</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Modal -->
-                        <div class="modal fade" id="ModalCreatePpff" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="ModalUpdatePpff" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
@@ -157,25 +157,25 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">Nombres</label>
-                                <p id="nombres"></p>
+                                <p id="nombres">{{ $estudiante->ppff->nombres }}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">Apellidos</label>
-                                <p id="apellidos"></p>
+                                <p id="apellidos">{{ $estudiante->ppff->apellidos }}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">Carnet de identidad</label>
-                                <p id="ci"></p>
+                                <p id="ci">{{ $estudiante->ppff->ci }}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">Fecha de nacimiento</label>
-                                <p id="fecha_nacimiento"></p>
+                                <p id="fecha_nacimiento">{{ $estudiante->ppff->fecha_nacimiento }}</p>
                             </div>
                         </div>
                     </div>
@@ -183,25 +183,25 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">Teléfono</label>
-                                <p id="telefono"></p>
+                                <p id="telefono">{{ $estudiante->ppff->telefono }}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">Parentesco</label>
-                                <p id="parentesco"></p>
+                                <p id="parentesco">{{ $estudiante->ppff->parentesco }}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">Ocupación</label>
-                                <p id="ocupacion"></p>
+                                <p id="ocupacion">{{ $estudiante->ppff->ocupacion }}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">Dirección</label>
-                                <p id="direccion"></p>
+                                <p id="direccion">{{ $estudiante->ppff->direccion }}</p>
                             </div>
                         </div>
                     </div>
@@ -212,25 +212,36 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="card card-primary">
+            <div class="card card-success">
                 <div class="card-header">
                     <h3 class="card-title">Llene los datos del estudiante en el formulario</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('/admin/personal/create') }}" method="POST" enctype="multipart/form-data">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form action="{{ url('/admin/estudiantes/' . $estudiante->id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
-
+                        @method('PUT')
+                        <input type="text" name="ppff_id" id="ppff_id" value="{{ $estudiante->ppff->id }}" hidden>
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="foto">Fotografía</label><b> (*)</b>
 
                                     <input type="file" class="form-control" name="foto" id="foto"
-                                        onchange="mostrarImagen(event)" accept="image/*" required>
+                                        onchange="mostrarImagen(event)" accept="image/*">
 
                                     <div class="text-center">
-                                        <img src="" id="preview" style="max-width: 200px; margin-top: 10px;"
-                                            alt="">
+                                        <img src="{{ url('storage/' . $estudiante->foto) }}" id="preview"
+                                            style="max-width: 200px; margin-top: 10px;" alt="">
                                     </div>
                                     <script>
                                         const mostrarImagen = e =>
@@ -249,9 +260,16 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                             </div>
-                                            <select name="rol" id="" class="form-control">
+                                            <select name="rol" id="rol" class="form-control">
                                                 <option value="">Seleccione un rol...</option>
-
+                                                @foreach ($roles as $rol)
+                                                    @if ($rol->name == 'ESTUDIANTE')
+                                                        <option value="{{ $rol->name }}"
+                                                            {{ $rol->name == 'ESTUDIANTE' ? 'selected' : '' }}>
+                                                            {{ $rol->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                                <option value="">No existe el rol estudiante</option>
                                             </select>
                                         </div>
                                         @error('rol')
@@ -265,7 +283,7 @@
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
                                             <input type="text" class="form-control" name="nombres" id="nombres"
-                                                value="{{ old('nombres') }}" placeholder="Ingrese nombres..." required>
+                                                value="{{ old('nombres', $estudiante->nombres) }}" placeholder="Ingrese nombres..." required>
                                         </div>
                                         @error('nombres')
                                             <small class="text-danger">{{ $message }}</small>
@@ -278,7 +296,7 @@
                                                 <span class="input-group-text"><i class="fas fa-user-friends"></i></span>
                                             </div>
                                             <input type="text" class="form-control" name="apellidos" id="apellidos"
-                                                value="{{ old('apellidos') }}" placeholder="Ingrese apellidos..."
+                                                value="{{ old('apellidos', $estudiante->apellidos) }}" placeholder="Ingrese apellidos..."
                                                 required>
                                         </div>
                                         @error('apellidos')
@@ -292,7 +310,7 @@
                                                 <span class="input-group-text"><i class="fas fa-id-card"></i></span>
                                             </div>
                                             <input type="text" class="form-control" name="ci" id="ci"
-                                                value="{{ old('ci') }}" placeholder="Ingrese CI..." required>
+                                                value="{{ old('ci', $estudiante->ci) }}" placeholder="Ingrese CI..." required>
                                         </div>
                                         @error('ci')
                                             <small class="text-danger">{{ $message }}</small>
@@ -307,7 +325,7 @@
                                                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                             </div>
                                             <input type="date" class="form-control" name="fecha_nacimiento"
-                                                id="fecha_nacimiento" value="{{ old('fecha_nacimiento') }}" required>
+                                                id="fecha_nacimiento" value="{{ old('fecha_nacimiento', $estudiante->fecha_nacimiento) }}" required>
                                         </div>
                                         @error('fecha_nacimiento')
                                             <small class="text-danger">{{ $message }}</small>
@@ -320,23 +338,24 @@
                                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                             </div>
                                             <input type="text" class="form-control" name="telefono" id="telefono"
-                                                value="{{ old('telefono') }}" placeholder="Ingrese teléfono..." required>
+                                                value="{{ old('telefono', $estudiante->telefono) }}" placeholder="Ingrese teléfono..." required>
                                         </div>
                                         @error('telefono')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="profesion">Profesión</label><b> (*)</b>
+                                        <label for="genero">Género</label><b> (*)</b>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+                                                <span class="input-group-text"><i class="fas fa-users"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="profesion" id="profesion"
-                                                value="{{ old('profesion') }}" placeholder="Ingrese profesión..."
-                                                required>
+                                            <select name="genero" id="genero" class="form-control">
+                                                <option value="masculino" {{ $estudiante->genero == "masculino" ? 'selected' : '' }}>Masculino</option>
+                                                <option value="femenino" {{ $estudiante->genero == "femenino" ? 'selected' : '' }}>Femenino</option>
+                                            </select>
                                         </div>
-                                        @error('profesion')
+                                        @error('genero')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
@@ -347,7 +366,7 @@
                                                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                             </div>
                                             <input type="email" class="form-control" name="email" id="email"
-                                                value="{{ old('email') }}" placeholder="Ingrese profesión..." required>
+                                                value="{{ old('email', $estudiante->usuario->email) }}" placeholder="Ingrese profesión..." required>
                                         </div>
                                         @error('email')
                                             <small class="text-danger">{{ $message }}</small>
@@ -363,7 +382,7 @@
                                                         class="fas fa-map-marker-alt"></i></span>
                                             </div>
                                             <input type="text" class="form-control" name="direccion" id="direccion"
-                                                placeholder="Ingrese dirección..." value="{{ old('direccion') }}"
+                                                placeholder="Ingrese dirección..." value="{{ old('direccion', $estudiante->direccion) }}"
                                                 required>
                                         </div>
                                         @error('direccion')
@@ -377,7 +396,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <a href="{{ url('/admin/personal/') }}" class="btn btn-default"><i
+                                    <a href="{{ url('/admin/estudiantes/') }}" class="btn btn-default"><i
                                             class="fas fa-arrow-left"></i>
                                         Cancelar</a>
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>
@@ -453,30 +472,36 @@
 @section('js')
     <script>
         $(function() {
-            $("#datos_ppff").css("display", "none");
-
             $(".btn-seleccionar").click(function() {
                 let id = $(this).data('id');
-                let url = "{{ route('admin.estudiantes.get-ppff') }}";
 
-                $.get(url, {
+                $.ajax({
+                    url: "{{ route('admin.estudiantes.obtenerPPFF') }}", // Ruta definida en web.php
+                    type: "POST",
+                    data: {
                         id: id
                     },
-                    function(result) {
-                        console.log(result);
-                        $("#nombres").html(result.data.nombres);
-                        $("#apellidos").html(result.data.apellidos);
-                        $("#ci").html(result.data.ci);
-                        $("#fecha_nacimiento").html(result.data.fecha_nacimiento);
-                        $("#telefono").html(result.data.telefono);
-                        $("#parentesco").html(result.data.parentesco);
-                        $("#ocupacion").html(result.data.ocupacion);
-                        $("#direccion").html(result.data.direccion);
-                        $("#datos_ppff").css("display", "block");
-                        $("#ModalCreate").modal('hide');
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Token CSRF
                     },
-                    "json"
-                );
+                    success: function(response) {
+                        $("#nombres").html(response.data.nombres);
+                        $("#apellidos").html(response.data.apellidos);
+                        $("#ci").html(response.data.ci);
+                        $("#fecha_nacimiento").html(response.data.fecha_nacimiento);
+                        $("#telefono").html(response.data.telefono);
+                        $("#parentesco").html(response.data.parentesco);
+                        $("#ocupacion").html(response.data.ocupacion);
+                        $("#direccion").html(response.data.direccion);
+                        $("#ppff_id").val(response.data.id);
+                    },
+                    error: function(xhr) {
+                        alert("Error: " + xhr.status + " " + xhr.statusText);
+                    }
+                });
+
+                $("#modalSearch").modal("hide");
+                
             });
 
             $("#example1").DataTable({

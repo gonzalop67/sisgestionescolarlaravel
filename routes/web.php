@@ -101,9 +101,16 @@ Route::put('/admin/personal/formaciones/{id}', [FormacionController::class, 'upd
 Route::delete('/admin/personal/formaciones/{id}', [FormacionController::class, 'destroy'])->name('admin.formaciones.destroy')->middleware('auth');
 
 // rutas para los estudiantes del sistema
-Route::get('/admin/estudiantes/nuevos', [EstudianteController::class, 'index'])->name('admin.estudiantes.index')->middleware('auth');
-Route::get('/admin/estudiantes/nuevos/create', [EstudianteController::class, 'create'])->name('admin.estudiantes.create')->middleware('auth');
-Route::get('/admin/estudiantes/nuevos/get-ppff', [EstudianteController::class, 'get_ppff'])->name('admin.estudiantes.get-ppff')->middleware('auth');
+Route::get('/admin/estudiantes', [EstudianteController::class, 'index'])->name('admin.estudiantes.index')->middleware('auth');
+Route::get('/admin/estudiantes/create', [EstudianteController::class, 'create'])->name('admin.estudiantes.create')->middleware('auth');
+Route::post('/admin/estudiantes/create', [EstudianteController::class, 'store'])->name('admin.estudiantes.store')->middleware('auth');
+Route::get('/admin/estudiantes/{id}', [EstudianteController::class, 'show'])->name('admin.estudiantes.show')->middleware('auth');
+Route::get('/admin/estudiantes/{id}/edit', [EstudianteController::class, 'edit'])->name('admin.estudiantes.edit')->middleware('auth');
+Route::put('/admin/estudiantes/{id}', [EstudianteController::class, 'update'])->name('admin.estudiantes.update')->middleware('auth');
+Route::delete('/admin/estudiantes/{id}', [EstudianteController::class, 'destroy'])->name('admin.estudiantes.destroy')->middleware('auth');
+
+// ruta para obtener al padre de familia del estudiante
+Route::post('/admin/estudiantes/obtenerPPFF', [EstudianteController::class, 'get_ppff'])->name('admin.estudiantes.obtenerPPFF')->middleware('auth');
 
 // ruta para registrar al padre de familia del estudiante
 Route::post('/admin/estudiantes/ppff/create', [PpffController::class, 'store'])->name('admin.ppffs.store')->middleware('auth');

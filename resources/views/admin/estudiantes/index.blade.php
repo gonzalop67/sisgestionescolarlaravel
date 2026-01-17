@@ -12,7 +12,7 @@
                     <h3 class="card-title">Estudiantes registrados</h3>
 
                     <div class="card-tools">
-                        <a href="{{ url('/admin/estudiantes/nuevos/create') }}" class="btn btn-primary">Crear nuevo
+                        <a href="{{ url('/admin/estudiantes/create') }}" class="btn btn-primary">Crear nuevo
                             estudiante</a>
                     </div>
                     <!-- /.card-tools -->
@@ -23,7 +23,13 @@
                         <thead>
                             <tr>
                                 <th>Nro</th>
-                                
+                                <th>Estudiante</th>
+                                <th>Carnet de identidad</th>
+                                <th>Fecha de nacimiento</th>
+                                <th>Teléfono</th>
+                                <th>Género</th>
+                                <th>Correo</th>
+                                <th>Foto</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -31,21 +37,25 @@
                             @foreach ($estudiantes as $estudiante)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    
+                                    <td>{{ $estudiante->apellidos }} {{ $estudiante->nombres }}</td>
+                                    <td>{{ $estudiante->ci }}</td>
+                                    <td>{{ $estudiante->fecha_nacimiento }}</td>
+                                    <td>{{ $estudiante->telefono }}</td>
+                                    <td>{{ $estudiante->genero }}</td>
+                                    <td>{{ $estudiante->usuario->email }}</td>
+                                    <td><img src="{{ url('storage/' . $estudiante->foto) }}" width="75" alt="foto"></td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">
-                                            <a href="{{ url('/admin/personal/' . $estudiante->id . '/formaciones') }}"
-                                                class="btn btn-warning btn-sm"><i class="fas fa-tasks"></i> Formaciones</a>
-                                            <a href="{{ url('/admin/personal/show/' . $estudiante->id) }}"
+                                            <a href="{{ url('/admin/estudiantes/' . $estudiante->id) }}"
                                                 class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
-                                            <a href="{{ url('/admin/personal/' . $estudiante->id) . '/edit' }}"
+                                            <a href="{{ url('/admin/estudiantes/' . $estudiante->id) . '/edit' }}"
                                                 class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
                                             <button type="submit" class="btn btn-danger btn-sm"
                                                 onclick="preguntar{{ $estudiante->id }}(event)">
                                                 <i class="fas fa-trash"></i> Eliminar
                                             </button>
                                         </div>
-                                        <form action="{{ url('/admin/personal/' . $estudiante->id) }}" method="post"
+                                        <form action="{{ url('/admin/estudiantes/' . $estudiante->id) }}" method="post"
                                             id="miFormulario{{ $estudiante->id }}" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')

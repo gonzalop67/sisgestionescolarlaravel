@@ -62,7 +62,6 @@ class PersonalController extends Controller
         $personal->tipo = $request->tipo;
         $personal->nombres = $request->nombres;
         $personal->apellidos = $request->apellidos;
-        $personal->apellidos = $request->apellidos;
         $personal->ci = $request->ci;
         $personal->fecha_nacimiento = $request->fecha_nacimiento;
         $personal->direccion = $request->direccion;
@@ -126,7 +125,6 @@ class PersonalController extends Controller
         $usuario->save();
 
         $usuario->syncRoles($request->rol);
-
 
         $personal->nombres = $request->nombres;
         $personal->apellidos = $request->apellidos;

@@ -6,6 +6,7 @@ use App\Http\Controllers\FormacionController;
 use App\Http\Controllers\GestionController;
 use App\Http\Controllers\GradoController;
 use App\Http\Controllers\MateriaController;
+use App\Http\Controllers\MatriculacionController;
 use App\Http\Controllers\NivelController;
 use App\Http\Controllers\ParaleloController;
 use App\Http\Controllers\PeriodoController;
@@ -112,5 +113,19 @@ Route::delete('/admin/estudiantes/{id}', [EstudianteController::class, 'destroy'
 // ruta para obtener al padre de familia del estudiante
 Route::post('/admin/estudiantes/obtenerPPFF', [EstudianteController::class, 'get_ppff'])->name('admin.estudiantes.obtenerPPFF')->middleware('auth');
 
-// ruta para registrar al padre de familia del estudiante
-Route::post('/admin/estudiantes/ppff/create', [PpffController::class, 'store'])->name('admin.ppffs.store')->middleware('auth');
+// ruta para padres de familia del estudiante
+Route::get('/admin/ppffs', [PpffController::class, 'index'])->name('admin.ppffs.index')->middleware('auth');
+Route::post('/admin/estudiantes/ppff/create', [PpffController::class, 'store'])->name('admin.estudiantes.ppffs.store')->middleware('auth');
+Route::get('/admin/ppffs/create', [PpffController::class, 'create'])->name('admin.ppffs.create')->middleware('auth');
+Route::post('/admin/ppffs/create', [PpffController::class, 'store'])->name('admin.ppffs.store')->middleware('auth');
+Route::get('/admin/ppffs/{id}', [PpffController::class, 'show'])->name('admin.ppffs.show')->middleware('auth');
+
+// rutas para las matriculaciones del sistema
+Route::get('/admin/matriculaciones', [MatriculacionController::class, 'index'])->name('admin.matriculaciones.index')->middleware('auth');
+Route::get('/admin/matriculaciones/create', [MatriculacionController::class, 'create'])->name('admin.matriculaciones.create')->middleware('auth');
+Route::post('/admin/matriculaciones/create', [MatriculacionController::class, 'store'])->name('admin.matriculaciones.store')->middleware('auth');
+Route::get('/admin/matriculaciones/{id}', [MatriculacionController::class, 'show'])->name('admin.matriculaciones.show')->middleware('auth');
+Route::get('/admin/matriculaciones/{id}/edit', [MatriculacionController::class, 'edit'])->name('admin.matriculaciones.edit')->middleware('auth');
+Route::put('/admin/matriculaciones/{id}', [MatriculacionController::class, 'update'])->name('admin.matriculaciones.update')->middleware('auth');
+Route::delete('/admin/matriculaciones/{id}', [MatriculacionController::class, 'destroy'])->name('admin.matriculaciones.destroy')->middleware('auth');
+Route::get('/admin/matriculaciones/buscar_estudiante/{id}', [MatriculacionController::class, 'buscar_estudiante'])->name('admin.matriculaciones.buscar_estudiante')->middleware('auth');

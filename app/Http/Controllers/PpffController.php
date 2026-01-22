@@ -12,7 +12,8 @@ class PpffController extends Controller
      */
     public function index()
     {
-        //
+        $ppffs = Ppff::all();
+        return view('admin.ppffs.index', compact('ppffs'));
     }
 
     /**
@@ -20,7 +21,7 @@ class PpffController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.ppffs.create');
     }
 
     /**
@@ -59,9 +60,11 @@ class PpffController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Ppff $ppff)
+    public function show($id)
     {
-        //
+        $ppff = Ppff::with('estudiantes')->find($id);
+        // return response()->json($ppff);
+        return view('admin.ppffs.show', compact('ppff'));
     }
 
     /**

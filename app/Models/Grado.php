@@ -22,4 +22,9 @@ class Grado extends Model
     {
         return $this->hasMany(Paralelo::class);
     }
+
+    public function matriculaciones()
+    {
+        return $this->hasMany(Matriculacion::class);
+    }
 }

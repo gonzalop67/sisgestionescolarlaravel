@@ -39,7 +39,7 @@
                                                             <div class="input-group mb-3">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text"><i
-                                                                            class="fas fa-layer-group"></i></span>
+                                                                            class="fas fa-list-alt"></i></span>
                                                                 </div>
                                                                 <select class="form-control" name="nivel_id_create"
                                                                     id="nivel_id_create" required>

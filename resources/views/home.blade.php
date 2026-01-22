@@ -147,6 +147,20 @@
               <!-- /.info-box-content -->
             </div>
         </div>
+
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box"> 
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-fw fa-user-graduate"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Estudiantes registrados</span>
+                <span class="info-box-number">
+                  {{ $total_estudiantes }} estudiantes
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+        </div>
     </div>
 @stop
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Estudiante;
 use App\Models\Gestion;
 use App\Models\Grado;
 use App\Models\Materia;
@@ -40,10 +41,11 @@ class HomeController extends Controller
         $total_turnos = Turno::count();
         $total_materias = Materia::count();
         $total_roles = Role::count();
+        $total_estudiantes = Estudiante::count();
 
         $total_personal_administrativo = Personal::where('tipo', 'administrativo')->count();
         $total_personal_docente = Personal::where('tipo', 'docente')->count();
 
-        return view('home', compact('total_gestiones', 'total_periodos', 'total_niveles', 'total_grados', 'total_paralelos', 'total_turnos', 'total_materias', 'total_roles', 'total_personal_administrativo', 'total_personal_docente'));
+        return view('home', compact('total_gestiones', 'total_periodos', 'total_niveles', 'total_grados', 'total_paralelos', 'total_turnos', 'total_materias', 'total_roles', 'total_personal_administrativo', 'total_personal_docente', 'total_estudiantes'));
     }
 }

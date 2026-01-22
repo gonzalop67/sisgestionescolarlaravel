@@ -23,29 +23,34 @@
                 @csrf
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="logo">Logo de la institución</label><b> (*)</b>
-                            <div class="input-group">
-                                <input type="file" class="form-control" name="logo" id="logo" onchange="mostrarImagen(event)"
-                                    accept="image/*" @if (!isset($configuracion) || !$configuracion->logo) required @else @endif>
-                                <br>
-                                <div class="text-center">
-                                    {{-- <img id="preview" style="max-width: 200px; margin-top: 10px;"> --}}
-                                    @if (isset($configuracion) && $configuracion->logo)
-                                        <img src="{{ asset('storage/' . $configuracion->logo) }}" id="preview"
-                                            style="max-width: 200px; margin-top: 10px;" alt="Logo Actual">
-                                    @else
-                                        <img src="" id="preview" style="max-width: 200px; margin-top: 10px;"
-                                            alt="">
-                                    @endif
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="logo">Logo de la institución</label><b> (*)</b>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" name="logo" id="logo"
+                                            onchange="mostrarImagen(event)" accept="image/*"
+                                            @if (!isset($configuracion) || !$configuracion->logo) required @else @endif>
+                                        <br>
+                                        <div class="text-center">
+                                            {{-- <img id="preview" style="max-width: 200px; margin-top: 10px;"> --}}
+                                            @if (isset($configuracion) && $configuracion->logo)
+                                                <img src="{{ asset('storage/' . $configuracion->logo) }}" id="preview"
+                                                    style="max-width: 200px; margin-top: 10px;" alt="Logo Actual">
+                                            @else
+                                                <img src="" id="preview"
+                                                    style="max-width: 200px; margin-top: 10px;" alt="">
+                                            @endif
+                                        </div>
+                                        <script>
+                                            const mostrarImagen = e =>
+                                                document.getElementById('preview').src = URL.createObjectURL(e.target.files[0]);
+                                        </script>
+                                        @error('logo')
+                                            <small style="color: red">{{ $message }}</small>
+                                        @enderror
+                                    </div>
                                 </div>
-                                <script>
-                                    const mostrarImagen = e =>
-                                        document.getElementById('preview').src = URL.createObjectURL(e.target.files[0]);
-                                </script>
-                                @error('logo')
-                                    <small style="color: red">{{ $message }}</small>
-                                @enderror
                             </div>
                         </div>
                     </div>

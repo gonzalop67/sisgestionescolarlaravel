@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Freddy Hilari',
             'email' => 'admin@admin.com',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('9876543210'),
         ])->assignRole('ADMINISTRADOR');
 
         Configuracion::create([
@@ -62,7 +62,7 @@ class DatabaseSeeder extends Seeder
 
         Nivel::create(['nombre' => 'INICIAL']);
         Nivel::create(['nombre' => 'PRIMARIA']);
-        Nivel::create(['nombre' => 'SECUENDARIA']);
+        Nivel::create(['nombre' => 'SECUNDARIA']);
 
         Grado::create(['nombre' => '1ro. Inicial', 'nivel_id' => 1]);
         Grado::create(['nombre' => '2do. Inicial', 'nivel_id' => 1]);
@@ -376,8 +376,8 @@ class DatabaseSeeder extends Seeder
         Ppff::create(['nombres'=>'Mario','apellidos'=>'Suárez Velasco','ci'=>'99990000','fecha_nacimiento'=>'1977-08-20','telefono'=>'70990011','parentesco'=>'Tutor','ocupacion'=>'Asistente de Gerencia','direccion'=>'Av. Amazonas 2048 y Av. Colón']);
         Ppff::create(['nombres'=>'Patricia','apellidos'=>'López Herrera','ci'=>'00001111','fecha_nacimiento'=>'1986-05-17','telefono'=>'70001122','parentesco'=>'Madre','ocupacion'=>'Contable','direccion'=>'Av. Salvatierra E25-256 y Av. Insurgentes']);
 
-        User::create(['name'=>'Gabriel Rodríguez Silva','email'=>'gabriel.rodriguez@estudiante.com','password'=>Hash::make('3344556')])->assignRole('ESTUDIANTE');
-        Estudiante::create(['usuario_id'=>18,'ppff_id'=>1,'nombres'=>'Gabriel','apellidos'=>'Rodríguez Silva','ci'=>'3344556','fecha_nacimiento'=>'2010-03-12','telefono'=>'11112222','direccion'=>'Av. Siemprevivas 125 e Insurgentes','foto'=>'uploads/fotos/estudiantes/'.time().'_gabriel.jpg','genero'=>'masculino','estado'=>'activo']);
+        User::create(['name'=>'Josselyn Mateu','email'=>'josselyn.mateu@estudiante.com','password'=>Hash::make('1712141598')])->assignRole('ESTUDIANTE');
+        Estudiante::create(['usuario_id'=>18,'ppff_id'=>1,'nombres'=>'Josselyn','apellidos'=>'Mateu','ci'=>'1712141598','fecha_nacimiento'=>'1991-09-16','telefono'=>'0998875412','direccion'=>'Av. Siemprevivas 125 e Insurgentes','foto'=>'uploads/fotos/estudiantes/JO6SQuwchWFvDntFyucrdoCUYoqTeWR0msjK3p0Z.jpg','genero'=>'femenino','estado'=>'activo']);
 
         User::create(['name'=>'Lucía Vargas Torres','email'=>'lucia.vargas@estudiante.com','password'=>Hash::make('4455667')])->assignRole('ESTUDIANTE');
         Estudiante::create(['usuario_id'=>19,'ppff_id'=>2,'nombres'=>'Lucía','apellidos'=>'Vargas Torres','ci'=>'4455667','fecha_nacimiento'=>'2010-05-28','telefono'=>'22223333','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_lucia.jpg','genero'=>'femenino','estado'=>'activo']);
@@ -433,10 +433,10 @@ class DatabaseSeeder extends Seeder
         User::create(['name'=>'Angel Caisalitin Criollo','email'=>'angel.caisalitin.criollo@estudiante.com','password'=>Hash::make('1727832725')])->assignRole('ESTUDIANTE');
         Estudiante::create(['usuario_id'=>36,'ppff_id'=>9,'nombres'=>'Angel','apellidos'=>'Caisalitin Criollo','ci'=>'1727832725','fecha_nacimiento'=>'2007-01-29','telefono'=>'0980963659','direccion'=>'Buenos Aires Y Jose Feliz Barreiro','foto'=>'uploads/fotos/estudiantes/'.time().'_angel.jpg','genero'=>'masculino','estado'=>'activo']);
 
-        /*User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
-        Estudiante::create(['usuario_id'=>37,'ppff_id'=>3,'nombres'=>'Liliana','apellidos'=>'Barre Zambrano','ci'=>'2300003304','fecha_nacimiento'=>'2007-03-07','telefono'=>'0987010482','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_liliana.jpg','genero'=>'femenino','estado'=>'activo']);
+        User::create(['name'=>'Daniel Pillajo Quishpe','email'=>'daniel.Pillajo.quishpe@estudiante.com','password'=>Hash::make('1724372956')])->assignRole('ESTUDIANTE');
+        Estudiante::create(['usuario_id'=>37,'ppff_id'=>10,'nombres'=>'Daniel','apellidos'=>'Pillajo Quishpe','ci'=>'1724372956','fecha_nacimiento'=>'2007-05-24','telefono'=>'0993121061','direccion'=>'AMAGASI DEL INCA','foto'=>'uploads/fotos/estudiantes/'.time().'_daniel.jpg','genero'=>'masculino','estado'=>'activo']);
 
-        User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
+        /*User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
         Estudiante::create(['usuario_id'=>38,'ppff_id'=>3,'nombres'=>'Liliana','apellidos'=>'Barre Zambrano','ci'=>'2300003304','fecha_nacimiento'=>'2007-03-07','telefono'=>'0987010482','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_liliana.jpg','genero'=>'femenino','estado'=>'activo']);
 
         User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');

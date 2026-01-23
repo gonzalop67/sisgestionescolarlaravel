@@ -33,7 +33,6 @@
                                             @if (!isset($configuracion) || !$configuracion->logo) required @else @endif>
                                         <br>
                                         <div class="text-center">
-                                            {{-- <img id="preview" style="max-width: 200px; margin-top: 10px;"> --}}
                                             @if (isset($configuracion) && $configuracion->logo)
                                                 <img src="{{ asset('storage/' . $configuracion->logo) }}" id="preview"
                                                     style="max-width: 200px; margin-top: 10px;" alt="Logo Actual">

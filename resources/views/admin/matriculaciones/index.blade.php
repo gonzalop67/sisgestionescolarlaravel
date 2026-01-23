@@ -37,9 +37,18 @@
                             @foreach ($matriculaciones as $matriculacion)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    
+                                    <td>{{ $matriculacion->estudiante->apellidos . " " . $matriculacion->estudiante->nombres }}</td>
+                                    <td>{{ $matriculacion->estudiante->ci }}</td>
+                                    <td>{{ $matriculacion->turno->nombre }}</td>
+                                    <td>{{ $matriculacion->gestion->nombre }}</td>
+                                    <td>{{ $matriculacion->nivel->nombre }}</td>
+                                    <td>{{ $matriculacion->grado->nombre }}</td>
+                                    <td>{{ $matriculacion->paralelo->nombre }}</td>
+                                    <td>{{ $matriculacion->fecha_matriculacion }}</td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">
+                                            <a href="{{ url('/admin/matriculaciones/pdf/' . $matriculacion->id) }}"
+                                                class="btn btn-warning btn-sm"><i class="fas fa-print"></i> Matrícula</a>
                                             <a href="{{ url('/admin/matriculaciones/' . $matriculacion->id) }}"
                                                 class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
                                             <a href="{{ url('/admin/matriculaciones/' . $matriculacion->id) . '/edit' }}"

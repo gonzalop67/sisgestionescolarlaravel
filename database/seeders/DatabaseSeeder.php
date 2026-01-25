@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
             'divisa' => 'Bs',
             'correo_electronico' => 'hilariweb@gmail.com',
             'web' => 'https://hilariweb.com',
-            'logo' => 'uploads/logos/BWgoHb5AdaZHOjECmFo07atZyJVK2FgwEC3Ypiah.jpg',
+            'logo' => 'uploads/logos/4AaoUTVyDN5JebumToAnQA9V7pJeZ4OUC9eQPgIF.jpg',
         ]);
 
         Gestion::create(['nombre' => '2024']);
@@ -382,8 +382,8 @@ class DatabaseSeeder extends Seeder
         User::create(['name'=>'Lucía Vargas Torres','email'=>'lucia.vargas@estudiante.com','password'=>Hash::make('4455667')])->assignRole('ESTUDIANTE');
         Estudiante::create(['usuario_id'=>19,'ppff_id'=>2,'nombres'=>'Lucía','apellidos'=>'Vargas Torres','ci'=>'4455667','fecha_nacimiento'=>'2010-05-28','telefono'=>'22223333','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_lucia.jpg','genero'=>'femenino','estado'=>'activo']);
 
-        User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
-        Estudiante::create(['usuario_id'=>20,'ppff_id'=>3,'nombres'=>'Liliana','apellidos'=>'Barre Zambrano','ci'=>'2300003304','fecha_nacimiento'=>'2010-03-07','telefono'=>'0987010482','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_liliana.jpg','genero'=>'femenino','estado'=>'activo']);
+        User::create(['name'=>'Josselyn Laso','email'=>'josselyn.laso@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
+        Estudiante::create(['usuario_id'=>20,'ppff_id'=>3,'nombres'=>'Josselyn','apellidos'=>'Laso','ci'=>'2300003304','fecha_nacimiento'=>'2010-03-07','telefono'=>'0987010482','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/lnU965OxKashx67d1vKXIrCIOrhxvjszfswWO0Bw.jpg','genero'=>'femenino','estado'=>'activo']);
 
         User::create(['name'=>'Jonathan Casagallo Muenala','email'=>'jonathan.casagallo@estudiante.com','password'=>Hash::make('1725971384')])->assignRole('ESTUDIANTE');
         Estudiante::create(['usuario_id'=>21,'ppff_id'=>4,'nombres'=>'Jonathan','apellidos'=>'Casagallo Muenala','ci'=>'1725971384','fecha_nacimiento'=>'2010-10-24','telefono'=>'0985557138','direccion'=>'Jose Felix Bareiro Y Nogales','foto'=>'uploads/fotos/estudiantes/'.time().'_fernando.jpg','genero'=>'masculino','estado'=>'activo']);

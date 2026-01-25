@@ -48,7 +48,7 @@
                                         <div class="form-group">
                                             <label for="">Fotografía</label>
                                             <div class="text-center">
-                                                <img src="" id="foto" width="150px" alt="foto">
+                                                <img src="{{ url('storage/uploads/fotos/estudiantes/No_image_available.svg.png') }}" id="foto" width="150px" alt="foto">
                                             </div>
                                         </div>
                                     </div>
@@ -271,7 +271,7 @@
     <script>
         $('.select2').select2();
 
-        $("#datos_estudiante").hide();
+        // $("#datos_estudiante").hide();
 
         $("#niveles").on('change', function() {
             var id = $(this).val();

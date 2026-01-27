@@ -329,14 +329,9 @@
                     success: function(estudiante) {
                         $("#apellidos").html(estudiante.apellidos);
                         $("#nombres").html(estudiante.nombres);
-                        $("#nombres").html(estudiante.nombres);
-                        $("#ci").html(estudiante.ci);
                         $("#ci").html(estudiante.ci);
                         $("#fecha_nacimiento").html(estudiante.fecha_nacimiento);
-                        $("#fecha_nacimiento").html(estudiante.fecha_nacimiento);
                         $("#telefono").html(estudiante.telefono);
-                        $("#telefono").html(estudiante.telefono);
-                        $("#direccion").html(estudiante.direccion);
                         $("#direccion").html(estudiante.direccion);
                         $("#email").html(estudiante.usuario.email);
                         $("#genero").html(estudiante.genero);

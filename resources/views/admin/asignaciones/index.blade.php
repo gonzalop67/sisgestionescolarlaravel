@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1><b>Listado de estudiantes</b></h1>
+    <h1><b>Listado de asignaciones de materias a los docentes</b></h1>
 @stop
 
 @section('content')
@@ -9,11 +9,10 @@
         <div class="col-md-12">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Estudiantes registrados</h3>
+                    <h3 class="card-title">Asignaciones registradas</h3>
 
                     <div class="card-tools">
-                        <a href="{{ url('/admin/estudiantes/create') }}" class="btn btn-primary">Crear nuevo
-                            estudiante</a>
+                        <a href="{{ url('/admin/asignaciones/create') }}" class="btn btn-primary">Crear nuevo</a>
                     </div>
                     <!-- /.card-tools -->
                 </div>
@@ -23,45 +22,45 @@
                         <thead>
                             <tr>
                                 <th>Nro</th>
-                                <th>Estudiante</th>
-                                <th>Carnet de identidad</th>
-                                <th>Fecha de nacimiento</th>
-                                <th>Teléfono</th>
-                                <th>Género</th>
-                                <th>Correo</th>
-                                <th>Foto</th>
+                                <th>Docente</th>
+                                <th>Turno</th>
+                                <th>Gestión</th>
+                                <th>Nivel</th>
+                                <th>Grado</th>
+                                <th>Paralelo</th>
+                                <th>Materia</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($estudiantes as $estudiante)
+                            @foreach ($asignaciones as $asignacion)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $estudiante->apellidos }} {{ $estudiante->nombres }}</td>
-                                    <td>{{ $estudiante->ci }}</td>
-                                    <td>{{ $estudiante->fecha_nacimiento }}</td>
-                                    <td>{{ $estudiante->telefono }}</td>
-                                    <td>{{ $estudiante->genero }}</td>
-                                    <td>{{ $estudiante->usuario->email }}</td>
-                                    <td><img src="{{ url('storage/' . $estudiante->foto) }}" width="75" alt="foto"></td>
+                                    <td>{{ $asignacion->personal->apellidos . " " . $asignacion->personal->nombres }}</td>
+                                    <td>{{ $asignacion->turno->nombre }}</td>
+                                    <td>{{ $asignacion->gestion->nombre }}</td>
+                                    <td>{{ $asignacion->nivel->nombre }}</td>
+                                    <td>{{ $asignacion->grado->nombre }}</td>
+                                    <td>{{ $asignacion->paralelo->nombre }}</td>
+                                    <td>{{ $asignacion->materia->nombre }}</td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">
-                                            <a href="{{ url('/admin/estudiantes/' . $estudiante->id) }}"
+                                            <a href="{{ url('/admin/asignaciones/' . $asignacion->id) }}"
                                                 class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
-                                            <a href="{{ url('/admin/estudiantes/' . $estudiante->id) . '/edit' }}"
+                                            <a href="{{ url('/admin/asignaciones/' . $asignacion->id) . '/edit' }}"
                                                 class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
                                             <button type="submit" class="btn btn-danger btn-sm"
-                                                onclick="preguntar{{ $estudiante->id }}(event)">
+                                                onclick="preguntar{{ $asignacion->id }}(event)">
                                                 <i class="fas fa-trash"></i> Eliminar
                                             </button>
                                         </div>
-                                        <form action="{{ url('/admin/estudiantes/' . $estudiante->id) }}" method="post"
-                                            id="miFormulario{{ $estudiante->id }}" style="display:inline-block;">
+                                        <form action="{{ url('/admin/asignaciones/' . $asignacion->id) }}" method="post"
+                                            id="miFormulario{{ $asignacion->id }}" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
                                         </form>
                                         <script>
-                                            function preguntar{{ $estudiante->id }}(event) {
+                                            function preguntar{{ $asignacion->id }}(event) {
                                                 event.preventDefault();
                                                 Swal.fire({
                                                     title: '¿Desea eliminar este registro?',
@@ -74,7 +73,7 @@
                                                     denyButtonText: 'Cancelar',
                                                 }).then((result) => {
                                                     if (result.isConfirmed) {
-                                                        document.getElementById('miFormulario{{ $estudiante->id }}').submit();
+                                                        document.getElementById('miFormulario{{ $asignacion->id }}').submit();
                                                     }
                                                 });
                                             }
@@ -157,10 +156,10 @@
                 "pageLength": 5,
                 "language": {
                     "emptyTable": "No hay información",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Estudiantes",
-                    "infoEmpty": "Mostrando 0 a 0 de 0 Estudiantes",
-                    "infoFiltered": "(Filtrado de _MAX_ total Estudiantes)",
-                    "lengthMenu": "Mostrar _MENU_ Estudiantes",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Asignaciones",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 Asignaciones",
+                    "infoFiltered": "(Filtrado de _MAX_ total Asignaciones)",
+                    "lengthMenu": "Mostrar _MENU_ Asignaciones",
                     "loadingRecords": "Cargando...",
                     "processing": "Procesando...",
                     "search": "Buscador",

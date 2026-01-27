@@ -382,6 +382,13 @@ return [
         ],
 
         [
+            'text' => 'Asignaciones',
+            'url' => 'admin/asignaciones',
+            'icon' => 'fas fa-fw fa-chalkboard-teacher',
+            'classes' => 'bg-blue text-white',
+        ],
+
+        [
             'text' => 'Padres de familia',
             'icon' => 'fas fa-fw fa-house-user',
             'classes' => 'bg-blue text-white',

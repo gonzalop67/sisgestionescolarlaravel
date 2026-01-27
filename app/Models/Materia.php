@@ -11,4 +11,9 @@ class Materia extends Model
     protected $fillable = [
         'nombre'
     ];
+
+    public function asignaciones()
+    {
+        return $this->hasMany(Asignacion::class);
+    }
 }

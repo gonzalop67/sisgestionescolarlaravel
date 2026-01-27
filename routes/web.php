@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AsignacionController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\FormacionController;
@@ -132,3 +133,9 @@ Route::get('/admin/matriculaciones/buscar_estudiante/{id}', [MatriculacionContro
 Route::get('/admin/matriculaciones/buscar_grado/{id}', [MatriculacionController::class, 'buscar_grados'])->name('admin.matriculaciones.buscar_grados')->middleware('auth');
 Route::get('/admin/matriculaciones/buscar_paralelo/{id}', [MatriculacionController::class, 'buscar_paralelos'])->name('admin.matriculaciones.buscar_paralelos')->middleware('auth');
 Route::get('/admin/matriculaciones/pdf/{id}', [MatriculacionController::class, 'pdf_matricula'])->name('admin.matriculaciones.pdf_matricula')->middleware('auth');
+
+// rutas para asignación de materias de los docentes
+Route::get('/admin/asignaciones', [AsignacionController::class, 'index'])->name('admin.asignaciones.index')->middleware('auth');
+Route::get('/admin/asignaciones/create', [AsignacionController::class, 'create'])->name('admin.asignaciones.create')->middleware('auth');
+Route::post('/admin/asignaciones/create', [AsignacionController::class, 'store'])->name('admin.asignaciones.store')->middleware('auth');
+Route::get('/admin/asignaciones/buscar_docente/{id}', [AsignacionController::class, 'buscar_docente'])->name('admin.asignaciones.buscar_docente')->middleware('auth');

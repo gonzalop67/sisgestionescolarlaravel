@@ -9,7 +9,7 @@ class Asignacion extends Model
     protected $table = "asignaciones";
 
     protected $fillable = [
-        'docente_id',
+        'personal_id',
         'turno_id',
         'gestion_id',
         'nivel_id',

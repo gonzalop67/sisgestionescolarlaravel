@@ -124,7 +124,7 @@ Table asignaciones {
     nivel_id int [ref: > niveles.id]
     grado_id int [ref: > grados.id]
     paralelo_id int [ref: > paralelos.id]
-    materia:id int [ref: > materias.id]
+    materia_id int [ref: > materias.id]
     estado varchar
     fecha_asignacion date
 }

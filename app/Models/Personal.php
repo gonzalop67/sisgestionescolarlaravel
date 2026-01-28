@@ -17,7 +17,8 @@ class Personal extends Model
         'fecha_nacimiento',
         'direccion',
         'telefono',
-        'profesion'
+        'profesion',
+        'foto'
     ];
 
     public function usuario()

@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1>Matriculaciones/Datos de la matriculación del estudiante</h1>
+    <h1>Asignaciones/Datos de la asignación de materias del docente</h1>
     <hr>
 @stop
 
@@ -10,7 +10,7 @@
         <div class="col-md-8">
             <div class="card card-info">
                 <div class="card-header">
-                    <h3 class="card-title">Datos del estudiante</h3>
+                    <h3 class="card-title">Datos del docente</h3>
                 </div>
                 <div class="card-body">
 
@@ -22,7 +22,7 @@
                                         <div class="form-group">
                                             <label for="">Fotografía</label>
                                             <div class="text-center">
-                                                <img src="{{ url('storage/' . $matricula->estudiante->foto) }}"
+                                                <img src="{{ url('storage/' . $asignacion->personal->foto) }}"
                                                     id="foto" width="150px" alt="foto">
                                             </div>
                                         </div>
@@ -33,35 +33,35 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <label for="">Apellidos</label>
-                                        <p id="apellidos">{{ $matricula->estudiante->apellidos }}</p>
+                                        <p id="apellidos">{{ $asignacion->personal->apellidos }}</p>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="">Nombres</label>
-                                        <p id="nombres">{{ $matricula->estudiante->nombres }}</p>
+                                        <p id="nombres">{{ $asignacion->personal->nombres }}</p>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="">Carnet de Identidad</label>
-                                        <p id="ci">{{ $matricula->estudiante->ci }}</p>
+                                        <p id="ci">{{ $asignacion->personal->ci }}</p>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="">Fecha de nacimiento</label>
-                                        <p id="fecha_nacimiento">{{ $matricula->estudiante->fecha_nacimiento }}</p>
+                                        <p id="fecha_nacimiento">{{ $asignacion->personal->fecha_nacimiento }}</p>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="">Teléfono</label>
-                                        <p id="telefono">{{ $matricula->estudiante->telefono }}</p>
+                                        <p id="telefono">{{ $asignacion->personal->telefono }}</p>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="">Dirección</label>
-                                        <p id="direccion">{{ $matricula->estudiante->direccion }}</p>
+                                        <p id="direccion">{{ $asignacion->personal->direccion }}</p>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="">Correo electrónico</label>
-                                        <p id="email">{{ $matricula->estudiante->usuario->email }}</p>
+                                        <p id="email">{{ $asignacion->personal->usuario->email }}</p>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="">Género</label>
-                                        <p id="genero">{{ $matricula->estudiante->genero }}</p>
+                                        <label for="">Profesión</label>
+                                        <p id="profesion">{{ $asignacion->personal->profesion }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -75,27 +75,30 @@
                 <div class="col-md-12">
                     <div class="card-info">
                         <div class="card-header">
-                            <h3 class="card-title">Historial académico</h3>
+                            <h3 class="card-title">Formación académica</h3>
                         </div>
                         <div class="card-body">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Turno</th>
-                                        <th>Gestión</th>
+                                        <th>Título</th>
+                                        <th>Institución</th>
                                         <th>Nivel</th>
-                                        <th>Grado</th>
-                                        <th>Paralelo</th>
+                                        <th>Fecha graduación</th>
+                                        <th>Archivo</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($matricula->estudiante->matriculaciones as $item)
+                                    @foreach ($asignacion->personal->formaciones as $item)
                                         <tr>
-                                            <td>{{ $item->turno->nombre }}</td>
-                                            <td>{{ $item->gestion->nombre }}</td>
-                                            <td>{{ $item->nivel->nombre }}</td>
-                                            <td>{{ $item->grado->nombre }}</td>
-                                            <td>{{ $item->paralelo->nombre }}</td>
+                                            <td>{{ $item->titulo }}</td>
+                                            <td>{{ $item->institucion }}</td>
+                                            <td>{{ $item->nivel }}</td>
+                                            <td>{{ $item->fecha_graduacion }}</td>
+                                            <td>
+                                                <a href="{{ url('storage/' . $item->archivo) }}" target="_blank">Ver
+                                                    Archivo</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -109,20 +112,20 @@
         <div class="col-md-4">
             <div class="card card-info">
                 <div class="card-header">
-                    <h3 class="card-title">Datos de la matrícula</h3>
+                    <h3 class="card-title">Datos de la asignación</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nombre">Turno</label>
-                                <p>{{ $matricula->turno->nombre }}</p>
+                                <p>{{ $asignacion->turno->nombre }}</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nombre">Gestión</label>
-                                <p>{{ $matricula->gestion->nombre }}</p>
+                                <p>{{ $asignacion->gestion->nombre }}</p>
                             </div>
                         </div>
                     </div>
@@ -130,13 +133,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nivel_id">Nivel</label>
-                                <p>{{ $matricula->nivel->nombre }}</p>
+                                <p>{{ $asignacion->nivel->nombre }}</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nombre">Grado</label>
-                                <p>{{ $matricula->grado->nombre }}</p>
+                                <p>{{ $asignacion->grado->nombre }}</p>
                             </div>
                         </div>
                     </div>
@@ -144,13 +147,21 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nombre">Paralelo</label>
-                                <p>{{ $matricula->paralelo->nombre }}</p>
+                                <p>{{ $asignacion->paralelo->nombre }}</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nombre">Fecha</label>
-                                <p>{{ $matricula->fecha_matriculacion }}</p>
+                                <p>{{ $asignacion->fecha_asignacion }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="materia_id">Materia a impartir</label>
+                                <p>{{ $asignacion->materia->nombre }}</p>
                             </div>
                         </div>
                     </div>
@@ -158,7 +169,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <a href="{{ url('/admin/matriculaciones') }}" class="btn btn-default"><i
+                                <a href="{{ url('/admin/asignaciones') }}" class="btn btn-default"><i
                                         class="fas fa-arrow-left"></i>
                                     Volver</a>
                             </div>
@@ -168,12 +179,4 @@
             </div>
         </div>
     </div>
-@stop
-
-@section('css')
-    
-@stop
-
-@section('js')
-    
 @stop

@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Asignacion;
 use App\Models\Configuracion;
 use App\Models\Estudiante;
 use App\Models\Gestion;
 use App\Models\Grado;
 use App\Models\Materia;
+use App\Models\Matriculacion;
 use App\Models\Nivel;
 use App\Models\Paralelo;
 use App\Models\Periodo;
@@ -217,23 +219,23 @@ class DatabaseSeeder extends Seeder
             'direccion' => 'Joaquín Sumaita 706 y Sebastián Arias',
             'telefono' => '2447936',
             'profesion' => 'Licenciado en Matemática y Física',
-            'foto' => 'uploads/fotos/'.time().'_gonzalo.jpg',
+            'foto' => 'uploads/fotos/R7XVy5NsUAO9ZJXxuIEx21NvpQbnu85ymlQlwApA.png',
             'created_at' => now()->subYears(23) // Fecha de ingreso hace 23 años
         ]);
 
         //Docente 2
-        User::create(['name' => 'Jorge Piedra', 'email' => 'jorge.piedra@educacion.gob.ec', 'password' => Hash::make('2300003304')])->assignRole('DOCENTE');
+        User::create(['name' => 'Carlos Enríquez', 'email' => 'carlos.enriquez@educacion.gob.ec', 'password' => Hash::make('2300003304')])->assignRole('DOCENTE');
         Personal::create([
             'usuario_id' => 9,
             'tipo' => 'docente',
-            'nombres' => 'Jorge',
-            'apellidos' => 'Piedra',
+            'nombres' => 'Carlos',
+            'apellidos' => 'Enríquez',
             'ci' => '2300003304',
             'fecha_nacimiento' => '1967-05-24',
             'direccion' => 'Joaquín Sumaita 706 y Sebastián Arias',
             'telefono' => '2447936',
             'profesion' => 'Licenciado en Lengua y Literatura',
-            'foto' => 'uploads/fotos/'.time().'_jorge.jpg',
+            'foto' => 'uploads/fotos/ermJ9iC3k4149HLy3ETawi08OeiWqIJmmIYVduJp.png',
             'created_at' => now()->subYears(13) // Fecha de ingreso hace 13 años
         ]);
 
@@ -436,38 +438,34 @@ class DatabaseSeeder extends Seeder
         User::create(['name'=>'Daniel Pillajo Quishpe','email'=>'daniel.Pillajo.quishpe@estudiante.com','password'=>Hash::make('1724372956')])->assignRole('ESTUDIANTE');
         Estudiante::create(['usuario_id'=>37,'ppff_id'=>10,'nombres'=>'Daniel','apellidos'=>'Pillajo Quishpe','ci'=>'1724372956','fecha_nacimiento'=>'2007-05-24','telefono'=>'0993121061','direccion'=>'AMAGASI DEL INCA','foto'=>'uploads/fotos/estudiantes/'.time().'_daniel.jpg','genero'=>'masculino','estado'=>'activo']);
 
-        /*User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
-        Estudiante::create(['usuario_id'=>38,'ppff_id'=>3,'nombres'=>'Liliana','apellidos'=>'Barre Zambrano','ci'=>'2300003304','fecha_nacimiento'=>'2007-03-07','telefono'=>'0987010482','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_liliana.jpg','genero'=>'femenino','estado'=>'activo']);
+        User::create(['name'=>'Margarita Albarracin Agurto','email'=>'margarita.albarracin@estudiante.com','password'=>Hash::make('0703507855')])->assignRole('ESTUDIANTE');
+        Estudiante::create(['usuario_id'=>38,'ppff_id'=>1,'nombres'=>'Margarita','apellidos'=>'Albarracin Agurto','ci'=>'0703507855','fecha_nacimiento'=>'2007-12-09','telefono'=>'0995330281','direccion'=>'San Isidro Del Inca Olivos Y Minas N 48-208','foto'=>'uploads/fotos/estudiantes/'.time().'_margarita.jpg','genero'=>'femenino','estado'=>'activo']);
 
-        User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
-        Estudiante::create(['usuario_id'=>39,'ppff_id'=>3,'nombres'=>'Liliana','apellidos'=>'Barre Zambrano','ci'=>'2300003304','fecha_nacimiento'=>'2007-03-07','telefono'=>'0987010482','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_liliana.jpg','genero'=>'femenino','estado'=>'activo']);
+        User::create(['name'=>'Mauricio Aluisa Gomez','email'=>'mauricio.aluisa@estudiante.com','password'=>Hash::make('1711307189')])->assignRole('ESTUDIANTE');
+        Estudiante::create(['usuario_id'=>39,'ppff_id'=>3,'nombres'=>'Mauricio','apellidos'=>'Aluisa Gomez','ci'=>'1711307189','fecha_nacimiento'=>'2007-08-03','telefono'=>'0987010482','direccion'=>'Carcelen Leonardo Freiré N 81-183 Y Jaime Roldos','foto'=>'uploads/fotos/estudiantes/'.time().'_mauricio.jpg','genero'=>'masculino','estado'=>'activo']);
 
-        User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
-        Estudiante::create(['usuario_id'=>40,'ppff_id'=>3,'nombres'=>'Liliana','apellidos'=>'Barre Zambrano','ci'=>'2300003304','fecha_nacimiento'=>'2007-03-07','telefono'=>'0987010482','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_liliana.jpg','genero'=>'femenino','estado'=>'activo']);
+        Matriculacion::create(['estudiante_id' => 1, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 9, 'paralelo_id' => 9, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 2, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 9, 'paralelo_id' => 9, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 3, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 9, 'paralelo_id' => 9, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 4, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 9, 'paralelo_id' => 9, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 5, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 9, 'paralelo_id' => 9, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 6, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 9, 'paralelo_id' => 9, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 7, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 9, 'paralelo_id' => 9, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 8, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 9, 'paralelo_id' => 9, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 9, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 9, 'paralelo_id' => 9, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 10, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 9, 'paralelo_id' => 9, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 11, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 10, 'paralelo_id' => 10, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 12, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 10, 'paralelo_id' => 10, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 13, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 10, 'paralelo_id' => 10, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 14, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 10, 'paralelo_id' => 10, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 15, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 10, 'paralelo_id' => 10, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 16, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 10, 'paralelo_id' => 10, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 17, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 10, 'paralelo_id' => 10, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 18, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 10, 'paralelo_id' => 10, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 19, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 10, 'paralelo_id' => 10, 'fecha_matriculacion' => '2025-01-15']);
+        Matriculacion::create(['estudiante_id' => 20, 'turno_id' => 1, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 10, 'paralelo_id' => 10, 'fecha_matriculacion' => '2025-01-15']);
 
-        User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
-        Estudiante::create(['usuario_id'=>41,'ppff_id'=>3,'nombres'=>'Liliana','apellidos'=>'Barre Zambrano','ci'=>'2300003304','fecha_nacimiento'=>'2007-03-07','telefono'=>'0987010482','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_liliana.jpg','genero'=>'femenino','estado'=>'activo']);
-
-        User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
-        Estudiante::create(['usuario_id'=>42,'ppff_id'=>3,'nombres'=>'Liliana','apellidos'=>'Barre Zambrano','ci'=>'2300003304','fecha_nacimiento'=>'2007-03-07','telefono'=>'0987010482','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_liliana.jpg','genero'=>'femenino','estado'=>'activo']);
-
-        User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
-        Estudiante::create(['usuario_id'=>43,'ppff_id'=>3,'nombres'=>'Liliana','apellidos'=>'Barre Zambrano','ci'=>'2300003304','fecha_nacimiento'=>'2007-03-07','telefono'=>'0987010482','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_liliana.jpg','genero'=>'femenino','estado'=>'activo']);
-
-        User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
-        Estudiante::create(['usuario_id'=>44,'ppff_id'=>3,'nombres'=>'Liliana','apellidos'=>'Barre Zambrano','ci'=>'2300003304','fecha_nacimiento'=>'2007-03-07','telefono'=>'0987010482','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_liliana.jpg','genero'=>'femenino','estado'=>'activo']);
-
-        User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
-        Estudiante::create(['usuario_id'=>45,'ppff_id'=>3,'nombres'=>'Liliana','apellidos'=>'Barre Zambrano','ci'=>'2300003304','fecha_nacimiento'=>'2007-03-07','telefono'=>'0987010482','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_liliana.jpg','genero'=>'femenino','estado'=>'activo']);
-
-        User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
-        Estudiante::create(['usuario_id'=>46,'ppff_id'=>3,'nombres'=>'Liliana','apellidos'=>'Barre Zambrano','ci'=>'2300003304','fecha_nacimiento'=>'2007-03-07','telefono'=>'0987010482','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_liliana.jpg','genero'=>'femenino','estado'=>'activo']);
-
-        User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
-        Estudiante::create(['usuario_id'=>47,'ppff_id'=>3,'nombres'=>'Liliana','apellidos'=>'Barre Zambrano','ci'=>'2300003304','fecha_nacimiento'=>'2007-03-07','telefono'=>'0987010482','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_liliana.jpg','genero'=>'femenino','estado'=>'activo']);
-
-        User::create(['name'=>'Liliana Barre Zambrano','email'=>'liliana.barre@estudiante.com','password'=>Hash::make('2300003304')])->assignRole('ESTUDIANTE');
-        Estudiante::create(['usuario_id'=>48,'ppff_id'=>3,'nombres'=>'Liliana','apellidos'=>'Barre Zambrano','ci'=>'2300003304','fecha_nacimiento'=>'2007-03-07','telefono'=>'0987010482','direccion'=>'Av. Gaspar de Villaroeal 576 y Av. 6 de diciembre','foto'=>'uploads/fotos/estudiantes/'.time().'_liliana.jpg','genero'=>'femenino','estado'=>'activo']);
-*/
+        Asignacion::create(['personal_id' => 7, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 9, 'paralelo_id' => 9, 'materia_id' => 14, 'turno_id' => 1, 'fecha_asignacion' => '2025-01-15']);
+        Asignacion::create(['personal_id' => 8, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 9, 'paralelo_id' => 9, 'materia_id' => 13, 'turno_id' => 1, 'fecha_asignacion' => '2025-01-15']);
     }
 }

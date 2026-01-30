@@ -33,8 +33,8 @@
                                     <td>{{ $role->name }}</td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">
-                                            <a href="{{ url('/admin/roles/' . $role->id) . '/edit' }}"
-                                                class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
+                                            <a href="{{ url('/admin/roles/' . $role->id) . '/permisos' }}" class="btn btn-warning btn-sm"><i class="fas fa-check"></i> Permisos</a>
+                                            <a href="{{ url('/admin/roles/' . $role->id) . '/edit' }}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
                                             <button type="submit" class="btn btn-danger btn-sm"
                                                 onclick="preguntar{{ $role->id }}(event)">
                                                 <i class="fas fa-trash"></i> Eliminar

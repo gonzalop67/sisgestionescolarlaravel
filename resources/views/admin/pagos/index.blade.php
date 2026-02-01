@@ -35,7 +35,9 @@
                                     <td>{{ $estudiante->usuario->email }}</td>
                                     <td>
                                         <a href="{{ url('/admin/pagos/estudiante/' . $estudiante->id) }}"
-                                            class="btn btn-success btn-sm"><i class="fas fa-money"></i> Ver pagos</a>
+                                            class="btn btn-success btn-sm"><i class="fas fa-money"></i> Ver pagos
+                                        </a>
+                                        
                                     </td>
                                 </tr>
                             @endforeach

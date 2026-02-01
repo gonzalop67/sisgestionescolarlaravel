@@ -35,4 +35,9 @@ class Matriculacion extends Model
     {
         return $this->belongsTo(Paralelo::class);
     }
+
+    public function pagos()
+    {
+        return $this->hasMany(Pago::class);
+    }
 }

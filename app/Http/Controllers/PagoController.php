@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Configuracion;
 use App\Models\Estudiante;
 use App\Models\Matriculacion;
 use App\Models\Pago;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class PagoController extends Controller
@@ -23,9 +25,26 @@ class PagoController extends Controller
     public function ver_pagos($id)
     {
         $estudiante = Estudiante::find($id);
-        $matriculas = Matriculacion::where('estudiante_id',$id)->get();
+        $matriculas = Matriculacion::with('pagos')->where('estudiante_id', $id)->get();
 
-        return view('admin.pagos.ver_pagos', compact('estudiante','matriculas'));
+        // return response()->json($matriculas);
+
+        return view('admin.pagos.ver_pagos', compact('estudiante', 'matriculas'));
+    }
+
+    public function comprobante($id)
+    {
+        $configuracion = Configuracion::first();
+
+        $pago = Pago::find($id);
+        $matricula = Matriculacion::with('estudiante.ppff', 'turno', 'gestion', 'nivel', 'grado', 'paralelo')->find($pago->matriculacion_id);
+
+        $pdf = Pdf::loadView('admin.pagos.comprobante', compact('configuracion', 'pago', 'matricula'));
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->setOptions(['defaultFont' => 'sans-serif']);
+        $pdf->setOptions(['isHtml5ParserEnabled' => true]);
+        $pdf->setOptions(['isRemoteEnabled' => true]);
+        return $pdf->stream('pago.pdf');
     }
 
     /**
@@ -41,7 +60,26 @@ class PagoController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json($request->all());
+        // return response()->json($request->all());
+        $request->validate([
+            'matriculacion_id' => 'required',
+            'monto' => 'required',
+            'metodo_pago' => 'required',
+            'descripcion' => 'required',
+            'fecha_pago' => 'required',
+        ]);
+
+        $pago = new Pago();
+        $pago->matriculacion_id = $request->matriculacion_id;
+        $pago->monto = $request->monto;
+        $pago->metodo_pago = $request->metodo_pago;
+        $pago->descripcion = $request->descripcion;
+        $pago->fecha_pago = $request->fecha_pago;
+        $pago->save();
+
+        return redirect()->back()
+            ->with('mensaje', 'El pago se registró correctamente.')
+            ->with('icono', 'success');
     }
 
     /**
@@ -71,8 +109,13 @@ class PagoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pago $pago)
+    public function destroy($id)
     {
-        //
+        $pago = Pago::find($id);
+        $pago->delete();
+
+        return redirect()->back()
+            ->with('mensaje', 'El pago se ha eliminado correctamente.')
+            ->with('icono', 'success');
     }
 }

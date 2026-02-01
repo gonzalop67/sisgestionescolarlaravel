@@ -55,7 +55,7 @@
                                                         <div class="form-group">
                                                             <label for="">Monto</label>
                                                             <input type="number" class="form-control" name="monto"
-                                                                id="">
+                                                                required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -63,7 +63,7 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="">Método de pago</label>
-                                                            <select name="metodo_pago" class="form-control">
+                                                            <select name="metodo_pago" class="form-control" required>
                                                                 <option value="Efectivo">Efectivo</option>
                                                                 <option value="Transferencia">Transferencia</option>
                                                                 <option value="Tarjeta de crédito">Tarjeta de crédito
@@ -81,7 +81,7 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="">Descripción</label>
-                                                            <textarea name="descripcion" class="form-control" id="" cols="30" rows="4"></textarea>
+                                                            <textarea name="descripcion" class="form-control" id="" cols="30" rows="4" required></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -89,11 +89,11 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="">Fecha de pago</label>
-                                                            <input type="date" name="fecha_pago" class="form-control">
+                                                            <input type="date" name="fecha_pago" class="form-control"
+                                                                required>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
@@ -120,9 +120,57 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                        </tr>
+                                        @foreach ($matricula->pagos as $pago)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $pago->monto }}</td>
+                                                <td>{{ $pago->metodo_pago }}</td>
+                                                <td>{{ $pago->descripcion }}</td>
+                                                <td>{{ $pago->fecha_pago }}</td>
+                                                <td>
+                                                    @if ($pago->estado == 'completado')
+                                                        <span class="badge badge-success">{{ $pago->estado }}</span>
+                                                    @else
+                                                        <span class="badge badge-danger">{{ $pago->estado }}</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-warning btn-sm"
+                                                        href="{{ url('/admin/pagos/' . $pago->id . '/comprobante') }}">
+                                                        <i class="fas fa-print"></i> Comprobante
+                                                    </a>
+
+                                                    <form action="{{ url('/admin/pagos/' . $pago->id) }}" method="post"
+                                                        id="miFormulario{{ $pago->id }}" style="display:inline-block;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm"
+                                                            onclick="preguntar{{ $pago->id }}(event)">
+                                                            <i class="fas fa-trash"></i> Eliminar pago
+                                                        </button>
+                                                    </form>
+                                                    <script>
+                                                        function preguntar{{ $pago->id }}(event) {
+                                                            event.preventDefault();
+                                                            Swal.fire({
+                                                                title: '¿Desea eliminar este registro?',
+                                                                text: '',
+                                                                icon: 'question',
+                                                                showDenyButton: true,
+                                                                confirmButtonText: 'Eliminar',
+                                                                confirmButtonColor: '#a5161d',
+                                                                denyButtonColor: '#270a0a',
+                                                                denyButtonText: 'Cancelar',
+                                                            }).then((result) => {
+                                                                if (result.isConfirmed) {
+                                                                    document.getElementById('miFormulario{{ $pago->id }}').submit();
+                                                                }
+                                                            });
+                                                        }
+                                                    </script>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

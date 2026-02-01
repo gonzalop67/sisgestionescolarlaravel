@@ -31,6 +31,6 @@ class AdminController extends Controller
         $total_personal_administrativo = Personal::where('tipo', 'administrativo')->count();
         $total_personal_docente = Personal::where('tipo', 'docente')->count();
 
-        return view('home', compact('total_gestiones', 'total_periodos', 'total_niveles', 'total_grados', 'total_paralelos', 'total_turnos', 'total_materias', 'total_roles', 'total_personal_administrativo', 'total_personal_docente', 'total_estudiantes'));
+        return view('admin.index', compact('total_gestiones', 'total_periodos', 'total_niveles', 'total_grados', 'total_paralelos', 'total_turnos', 'total_materias', 'total_roles', 'total_personal_administrativo', 'total_personal_docente', 'total_estudiantes'));
     }
 }

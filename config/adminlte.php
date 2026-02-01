@@ -422,6 +422,14 @@ return [
             'classes' => 'bg-blue text-white',
             'url' => 'admin/matriculaciones',
         ],
+
+        [
+            'can' => 'admin.pagos.index',
+            'text' => 'Pagos',
+            'icon' => 'fas fa-fw fa-money-bill-wave',
+            'classes' => 'bg-blue text-white',
+            'url' => 'admin/pagos',
+        ],
     ],
 
     /*

@@ -1,0 +1,148 @@
+@extends('adminlte::page')
+
+@section('content_header')
+    <h1>Pagos del estudiante {{ $estudiante->apellidos . ' ' . $estudiante->nombres }}</h1>
+    <hr>
+@stop
+
+@section('content')
+    <div class="row">
+        <div class="col-md-8">
+            <div class="accordion" id="accordionExample">
+
+                @foreach ($matriculas as $matricula)
+                    <div class="card">
+                        <div class="card-header" style="background-color: #1df09f" id="heading{{ $matricula->id }}">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                                    data-target="#collapseOne{{ $matricula->id }}" aria-expanded="true"
+                                    aria-controls="collapseOne{{ $matricula->id }}">
+                                    <b>Matrícula: Gestión
+                                        {{ $matricula->gestion->nombre . ' - ' . $matricula->nivel->nombre . ' - ' . $matricula->grado->nombre . ' - ' . $matricula->paralelo->nombre }}</b>
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapseOne{{ $matricula->id }}" class="collapse show"
+                            aria-labelledby="heading{{ $matricula->id }}" data-parent="#accordionExample"
+                            style="padding: 10px">
+
+                            <b>Pagos realizados</b>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-success float-right" data-toggle="modal"
+                                data-target="#exampleModal{{ $matricula->id }}">
+                                <i class="fas fa-money-bill-wave"></i> Realizar pago
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal{{ $matricula->id }}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background-color: #211df0; color: #fff">
+                                            <h5 class="modal-title" id="exampleModalLabel">Registrar Pago</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="{{ url('/admin/pagos/create') }}" method="POST">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <input type="text" value="{{ $matricula->id }}" name="matriculacion_id"
+                                                    hidden>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="">Monto</label>
+                                                            <input type="number" class="form-control" name="monto"
+                                                                id="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="">Método de pago</label>
+                                                            <select name="metodo_pago" class="form-control">
+                                                                <option value="Efectivo">Efectivo</option>
+                                                                <option value="Transferencia">Transferencia</option>
+                                                                <option value="Tarjeta de crédito">Tarjeta de crédito
+                                                                </option>
+                                                                <option value="Tarjeta de crédito">Tarjeta de crédito
+                                                                </option>
+                                                                <option value="Tarjeta de débito">Tarjeta de débito</option>
+                                                                <option value="Cheque">Cheque</option>
+                                                                <option value="Otros">Otros</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="">Descripción</label>
+                                                            <textarea name="descripcion" class="form-control" id="" cols="30" rows="4"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="">Fecha de pago</label>
+                                                            <input type="date" name="fecha_pago" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="card-body">
+                                <table class="table table-bordered table-striped table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Monto</th>
+                                            <th>Método de pago</th>
+                                            <th>Descripción</th>
+                                            <th>Fecha de pago</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+        </div>
+    </div>
+
+@stop
+
+@section('css')
+    {{-- Add here extra stylesheets --}}
+    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+@stop
+
+@section('js')
+    <script>
+        console.log("Hi, I'm using the Laravel-AdminLTE package!");
+    </script>
+@stop

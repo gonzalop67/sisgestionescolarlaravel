@@ -9,6 +9,7 @@ use App\Http\Controllers\GradoController;
 use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\MatriculacionController;
 use App\Http\Controllers\NivelController;
+use App\Http\Controllers\PagoController;
 use App\Http\Controllers\ParaleloController;
 use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\PersonalController;
@@ -145,3 +146,11 @@ Route::get('/admin/asignaciones/{id}', [AsignacionController::class, 'show'])->n
 Route::get('/admin/asignaciones/{id}/edit', [AsignacionController::class, 'edit'])->name('admin.asignaciones.edit')->middleware('auth','can:admin.asignaciones.edit');
 Route::put('/admin/asignaciones/{id}', [AsignacionController::class, 'update'])->name('admin.asignaciones.update')->middleware('auth','can:admin.asignaciones.update');
 Route::delete('/admin/asignaciones/{id}', [AsignacionController::class, 'destroy'])->name('admin.asignaciones.destroy')->middleware('auth','can:admin.asignaciones.destroy');
+
+// rutas para pagos
+Route::get('/admin/pagos', [PagoController::class, 'index'])->name('admin.pagos.index')->middleware('auth','can:admin.pagos.index');
+Route::get('/admin/pagos/estudiante/{id}', [PagoController::class, 'ver_pagos'])->name('admin.pagos.ver_pagos')->middleware('auth','can:admin.pagos.ver_pagos');
+Route::post('/admin/pagos/create', [PagoController::class, 'store'])->name('admin.pagos.store')->middleware('auth','can:admin.pagos.store');
+Route::get('/admin/pagos/{id}/comprobante', [PagoController::class, 'comprobante'])->name('admin.pagos.comprobante')->middleware('auth','can:admin.pagos.comprobante');
+Route::delete('/admin/pagos/{id}', [PagoController::class, 'destroy'])->name('admin.pagos.destroy')->middleware('auth','can:admin.pagos.destroy');
+

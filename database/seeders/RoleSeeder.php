@@ -133,5 +133,12 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.asignaciones.edit'])->syncRoles($admin);
         Permission::create(['name' => 'admin.asignaciones.update'])->syncRoles($admin);
         Permission::create(['name' => 'admin.asignaciones.destroy'])->syncRoles($admin);
+
+        //permisos para pagos
+        Permission::create(['name' => 'admin.pagos.index'])->syncRoles($admin, $caja);
+        Permission::create(['name' => 'admin.pagos.ver_pagos'])->syncRoles($admin, $caja);
+        Permission::create(['name' => 'admin.pagos.store'])->syncRoles($admin, $caja);
+        Permission::create(['name' => 'admin.pagos.comprobante'])->syncRoles($admin, $caja);
+        Permission::create(['name' => 'admin.pagos.destroy'])->syncRoles($admin, $caja);
     }
 }

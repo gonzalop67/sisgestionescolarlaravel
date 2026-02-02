@@ -138,3 +138,17 @@ Table pagos {
     fecha_pago date
     estado varchar
 }
+
+Table asistencias {
+    id int [pk, increment] // Primary key
+    asignacion_id int [ref: > asignaciones.id]
+    fecha date
+    observacion char
+}
+
+Table detalles_asistencias {
+    id int [pk, increment] // Primary key
+    asistencia_id int [ref: > asistencias.id]
+    estudiante_id int [ref: > estudiantes.id]
+    estado_asistencia varchar
+}

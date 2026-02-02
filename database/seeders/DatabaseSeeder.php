@@ -467,5 +467,6 @@ class DatabaseSeeder extends Seeder
 
         Asignacion::create(['personal_id' => 7, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 9, 'paralelo_id' => 9, 'materia_id' => 14, 'turno_id' => 1, 'fecha_asignacion' => '2025-01-15']);
         Asignacion::create(['personal_id' => 8, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 9, 'paralelo_id' => 9, 'materia_id' => 13, 'turno_id' => 1, 'fecha_asignacion' => '2025-01-15']);
+        Asignacion::create(['personal_id' => 8, 'gestion_id' => 3, 'nivel_id' => 3, 'grado_id' => 10, 'paralelo_id' => 10, 'materia_id' => 13, 'turno_id' => 1, 'fecha_asignacion' => '2025-01-15']);
     }
 }

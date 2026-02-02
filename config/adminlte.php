@@ -430,6 +430,14 @@ return [
             'classes' => 'bg-blue text-white',
             'url' => 'admin/pagos',
         ],
+
+        [
+            'can' => 'admin.asistencias.index',
+            'text' => 'Asistencias',
+            'icon' => 'fas fa-fw fa-user-check',
+            'classes' => 'bg-blue text-white',
+            'url' => 'admin/asistencias',
+        ],
     ],
 
     /*

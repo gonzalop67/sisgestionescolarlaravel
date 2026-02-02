@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AsignacionController;
+use App\Http\Controllers\AsistenciaController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\FormacionController;
@@ -154,3 +155,7 @@ Route::post('/admin/pagos/create', [PagoController::class, 'store'])->name('admi
 Route::get('/admin/pagos/{id}/comprobante', [PagoController::class, 'comprobante'])->name('admin.pagos.comprobante')->middleware('auth','can:admin.pagos.comprobante');
 Route::delete('/admin/pagos/{id}', [PagoController::class, 'destroy'])->name('admin.pagos.destroy')->middleware('auth','can:admin.pagos.destroy');
 
+// rutas para asistencias del estudiante
+Route::get('/admin/asistencias', [AsistenciaController::class, 'index'])->name('admin.asistencias.index')->middleware('auth','can:admin.asistencias.index');
+Route::get('/admin/asistencias/create/asignacion/{id}', [AsistenciaController::class, 'create'])->name('admin.asistencias.create')->middleware('auth','can:admin.asistencias.create');
+Route::post('/admin/asistencias/create', [AsistenciaController::class, 'store'])->name('admin.asistencias.store')->middleware('auth','can:admin.asistencias.store');

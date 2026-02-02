@@ -159,3 +159,5 @@ Route::delete('/admin/pagos/{id}', [PagoController::class, 'destroy'])->name('ad
 Route::get('/admin/asistencias', [AsistenciaController::class, 'index'])->name('admin.asistencias.index')->middleware('auth','can:admin.asistencias.index');
 Route::get('/admin/asistencias/create/asignacion/{id}', [AsistenciaController::class, 'create'])->name('admin.asistencias.create')->middleware('auth','can:admin.asistencias.create');
 Route::post('/admin/asistencias/create', [AsistenciaController::class, 'store'])->name('admin.asistencias.store')->middleware('auth','can:admin.asistencias.store');
+Route::put('/admin/asistencias/{id}', [AsistenciaController::class, 'update'])->name('admin.asistencias.update')->middleware('auth');
+Route::delete('/admin/asistencias/{id}', [AsistenciaController::class, 'destroy'])->name('admin.asistencias.destroy')->middleware('auth');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Asignacion;
 use App\Models\Asistencia;
+use App\Models\DetalleAsistencia;
 use App\Models\Matriculacion;
 use App\Models\Personal;
 use Illuminate\Http\Request;
@@ -42,16 +43,16 @@ class AsistenciaController extends Controller
     {
         $asignacion = Asignacion::find($id);
         $docente = Personal::where('usuario_id', Auth::user()->id)->first();
-        $asistencias = Asistencia::where('asignacion_id', $id)->get();
+        $asistencias = Asistencia::with('detalleAsistencias')->where('asignacion_id', $id)->get();
 
         $matriculados = Matriculacion::with('estudiante')
-        ->where('turno_id', $asignacion->turno_id)
-        ->where('gestion_id', $asignacion->gestion_id)
-        ->where('nivel_id', $asignacion->nivel_id)
-        ->where('grado_id', $asignacion->grado_id)
-        ->where('paralelo_id', $asignacion->paralelo_id)
-        ->get()
-        ->sortBy('estudiante.apellidos');
+            ->where('turno_id', $asignacion->turno_id)
+            ->where('gestion_id', $asignacion->gestion_id)
+            ->where('nivel_id', $asignacion->nivel_id)
+            ->where('grado_id', $asignacion->grado_id)
+            ->where('paralelo_id', $asignacion->paralelo_id)
+            ->get()
+            ->sortBy('estudiante.apellidos');
 
         return view('admin.asistencias.create', compact('asignacion', 'docente', 'asistencias', 'matriculados'));
     }
@@ -61,7 +62,33 @@ class AsistenciaController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json($request->all());
+        // return response()->json($request->all());
+        $request->validate([
+            'asignacion_id' => 'required',
+            'fecha' => 'required|date',
+            'observacion' => 'nullable|string|max:255',
+            'estado_asistencia' => 'required'
+        ]);
+
+        $asistencia = new Asistencia();
+        $asistencia->asignacion_id = $request->asignacion_id;
+        $asistencia->fecha = $request->fecha;
+        $asistencia->observacion = $request->observacion;
+        $asistencia->save();
+
+        $estado_asistencia = $request->estado_asistencia;
+
+        foreach ($estado_asistencia as $estudiante_id => $estado) {
+            DetalleAsistencia::create([
+                'asistencia_id' => $asistencia->id,
+                'estudiante_id' => $estudiante_id,
+                'estado_asistencia' => $estado,
+            ]);
+        }
+
+        return redirect()->back()
+            ->with('mensaje', 'Se registró la asistencia correctamente.')
+            ->with('icono', 'success');
     }
 
     /**
@@ -83,16 +110,46 @@ class AsistenciaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Asistencia $asistencia)
+    public function update(Request $request, $id)
     {
-        //
+        // return response()->json($request->all());
+        $request->validate([
+            'asignacion_id' => 'required',
+            'fecha' => 'required|date',
+            'observacion' => 'nullable|string|max:255',
+            'estado_asistencia' => 'required'
+        ]);
+
+        $asistencia = Asistencia::find($id);
+        $asistencia->asignacion_id = $request->asignacion_id;
+        $asistencia->fecha = $request->fecha;
+        $asistencia->observacion = $request->observacion;
+        $asistencia->save();
+
+        $estado_asistencia = $request->estado_asistencia;
+
+        foreach ($estado_asistencia as $estudiante_id => $estado) {
+            DetalleAsistencia::where('asistencia_id', $asistencia->id)
+                ->where('estudiante_id', $estudiante_id)
+                ->update(['estado_asistencia' => $estado]);
+        }
+
+        return redirect()->back()
+            ->with('mensaje', 'Se actualizó la asistencia correctamente.')
+            ->with('icono', 'success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Asistencia $asistencia)
+    public function destroy($id)
     {
-        //
+        $asistencia = Asistencia::find($id);
+        $asistencia->detalleAsistencias()->delete();
+        $asistencia->delete();
+
+        return redirect()->back()
+            ->with('mensaje', 'Se eliminó la asistencia correctamente.')
+            ->with('icono', 'success');
     }
 }

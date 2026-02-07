@@ -1,15 +1,31 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1><b>Listado general de asistencias</b></h1>
+    <h1><b>Listado de asistencias de los estudiantes de la gestión: {{ $asignacion->gestion->nombre }}
+            - Turno: {{ $asignacion->turno->nombre }}
+            - Nivel: {{ $asignacion->nivel->nombre }}
+            - Grado: {{ $asignacion->grado->nombre }}
+            - Paralelo: {{ $asignacion->paralelo->nombre }}
+            - Materia: {{ $asignacion->materia->nombre }}
+        </b></h1>
 @stop
+
+<style>
+    .rotate-header{
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        text-align: center;
+        padding: 5px;
+    }
+</style>
 
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Listado de asistencias por Asignaciones registradas</h3>
+                    <h3 class="card-title"><b>Docente:</b>
+                        {{ $asignacion->personal->apellidos . ' ' . $asignacion->personal->nombres }} </h3>
                     <!-- /.card-tools -->
                 </div>
                 <!-- /.card-header -->
@@ -18,30 +34,42 @@
                         <thead>
                             <tr>
                                 <th>Nro</th>
-                                <th>Docente</th>
-                                <th>Turno</th>
-                                <th>Gestión</th>
-                                <th>Nivel</th>
-                                <th>Grado</th>
-                                <th>Paralelo</th>
-                                <th>Materia</th>
-                                <th>Acciones</th>
+                                <th>Estudiante</th>
+                                <th>C.I.</th>
+                                @foreach ($asistencias->pluck('fecha')->unique()->sort() as $fecha)
+                                    <th style="text-align:center; width: 10px;" class="rotate-header">{{ \Carbon\Carbon::parse($fecha)->format('d/m/Y') }}</th>
+                                @endforeach
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($asignaciones as $asignacion)
+                            @foreach ($estudiantes as $estudiante)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $asignacion->personal->apellidos . " "  . $asignacion->personal->nombres }}</td>
-                                    <td>{{ $asignacion->turno->nombre }}</td>
-                                    <td>{{ $asignacion->gestion->nombre }}</td>
-                                    <td>{{ $asignacion->nivel->nombre }}</td>
-                                    <td>{{ $asignacion->grado->nombre }}</td>
-                                    <td>{{ $asignacion->paralelo->nombre }}</td>
-                                    <td>{{ $asignacion->materia->nombre }}</td>
-                                    <td>
-                                        <a href="{{ url('/admin/asistencias/asignacion/'.$asignacion->id) }}" class="btn btn-success btn-sm text-center"><i class="fas fa-list-alt"></i> Ver asistencia</a>
-                                    </td>
+                                    <td>{{ $estudiante->apellidos . ' ' . $estudiante->nombres }}</td>
+                                    <td>{{ $estudiante->ci }}</td>
+                                    @foreach ($fechas as $fecha)
+                                        @php
+                                            $asistencia = $asistencias->where('fecha', $fecha)->first();
+                                            if ($asistencia) {
+                                                $detalle = $asistencia->detalleAsistencias
+                                                    ->where('estudiante_id', $estudiante->id)
+                                                    ->first();
+                                                $estado = $detalle ? $detalle->estado_asistencia : 'N/A';
+                                            } else {
+                                                $estado = 'N/A';
+                                            }
+                                            if ($estado == 'PRESENTE') {
+                                                $estado = '<span class="badge badge-success">P</span>';
+                                            } elseif ($estado == 'ATRASO') {
+                                                $estado = '<span class="badge badge-warning">A</span>';
+                                            } elseif ($estado == 'FALTA') {
+                                                $estado = '<span class="badge badge-danger">F</span>';
+                                            } else {
+                                                $estado = '<span class="badge badge-secondary">L</span>';
+                                            }
+                                        @endphp
+                                        <td style="text-align: center">{!! $estado !!}</td>
+                                    @endforeach
                                 </tr>
                             @endforeach
                         </tbody>
@@ -116,7 +144,7 @@
     <script>
         $(function() {
             $("#example1").DataTable({
-                "pageLength": 5,
+                "pageLength": 25,
                 "language": {
                     "emptyTable": "No hay información",
                     "info": "Mostrando _START_ a _END_ de _TOTAL_ Asignaciones",

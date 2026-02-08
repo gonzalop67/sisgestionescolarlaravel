@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Asignacion;
 use App\Models\Asistencia;
 use App\Models\DetalleAsistencia;
+use App\Models\Estudiante;
 use App\Models\Matriculacion;
 use App\Models\Personal;
 use Illuminate\Http\Request;
@@ -33,7 +34,23 @@ class AsistenciaController extends Controller
         }
 
         if ($rol == 'ESTUDIANTE') {
-            return view('admin.asistencias.index_estudiante');
+            $estudiante = Estudiante::where('usuario_id', $id_usuario)->first();
+            $matriculas = Matriculacion::where('estudiante_id', $estudiante->id)->get();
+
+            $asignaciones = collect();
+
+            foreach ($matriculas as $matricula) {
+                $datos = Asignacion::with('personal', 'materia')
+                    ->where('turno_id', $matricula->turno_id)
+                    ->where('gestion_id', $matricula->gestion_id)
+                    ->where('nivel_id', $matricula->nivel_id)
+                    ->where('grado_id', $matricula->grado_id)
+                    ->where('paralelo_id', $matricula->paralelo_id)
+                    ->get();
+                $asignaciones = $asignaciones->merge($datos);
+            }
+
+            return view('admin.asistencias.index_estudiante', compact('estudiante', 'matriculas', 'asignaciones'));
         }
     }
 
@@ -109,6 +126,21 @@ class AsistenciaController extends Controller
         $fechas = $asistencias->pluck('fecha')->unique()->sort();
 
         return view('admin.asistencias.show', compact('asignacion', 'asistencias', 'estudiantes', 'fechas'));
+    }
+
+    public function show_estudiante($id_asignacion, $id_estudiante)
+    {
+        $asignacion = Asignacion::findOrFail($id_asignacion);
+        $estudiante = Estudiante::findOrFail($id_estudiante);
+
+        $asistencias = Asistencia::with(['detalleAsistencias' => function ($query) use ($id_estudiante) {
+            $query->where('estudiante_id', $id_estudiante);
+        }])
+            ->where('asignacion_id', $id_asignacion)
+            ->orderBy('fecha', 'desc') // Ordenar por fecha de forma descendente
+            ->get();
+
+        return view('admin.asistencias.show_estudiante', compact('asistencias', 'asignacion', 'estudiante'));
     }
 
     /**
